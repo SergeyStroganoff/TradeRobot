@@ -10,7 +10,7 @@ public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
     }
 
     @Override
-    public void startAbstractStrategy(int buyLine, int sellLine) {
+    public void runStrategy(int buyLine, int sellLine) {
 
         boolean prepareToBuy = false;
         boolean prepareToSell = false;
@@ -39,16 +39,23 @@ public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
                 }
             }
 
-            if (index > 3) {
+            if (index > 3 && index < candleStream.getCandlesArrayList().size()-1 ) {
                 if (rsaIndicator < rsa.getArrayListIndicator().get(index - 2)-10 && countPapers > 0) {
                     prepareToSell = false;
                     printLn("Stop Loss Detected ");
+
+                    System.out.println(index);  // времянка
+                    System.out.println(candleStream.getCandlesArrayList().size());// dhtvzyrf
+
                     transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));
+
+
+
+
                     printLn("Продали акции в колличестве: " + paperCount + " по цене:" + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
 
                 }
             }
-
 
             if (rsaIndicator > 70 && !prepareToSell && countPapers > 0) {
                 prepareToSell = true;

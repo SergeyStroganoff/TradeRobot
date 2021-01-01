@@ -16,7 +16,7 @@ public class TradeAction {
     public Transaction sell(int papersCount, double price, int candleIndex) {
 
         double payment = papersCount * price;
-        double brokerPayment = brokerTax*price;
+        double brokerPayment = brokerTax*payment;
 
         balance.setPapers(balance.getPapers() - papersCount);
         balance.setFreeMoney(balance.getFreeMoney() + payment - brokerPayment);
@@ -29,7 +29,8 @@ public class TradeAction {
     public Transaction buy(int papersCount, double price, int candleIndex) {
 
         double payment = papersCount * price;
-        double brokerPayment = brokerTax*price;
+        double brokerPayment = brokerTax*payment;
+        System.out.println("Оплата брокеру составила: " + brokerPayment);
 
         balance.setPapers(balance.getPapers() + papersCount);
         balance.setFreeMoney(balance.getFreeMoney() - payment - brokerPayment);

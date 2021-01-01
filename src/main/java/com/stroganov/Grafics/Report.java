@@ -47,6 +47,13 @@ public class Report {
         System.out.println(string);
     }
 
+    public double getFinishBalance() {
+        return finishBalance;
+    }
+
+    public double getProfitPercentage() {
+        return profitPercentage;
+    }
 
     public boolean prepareReport(@NotNull ArrayList<Transaction> transactionArrayList) {
         boolean allRight = true;
