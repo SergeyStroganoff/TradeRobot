@@ -33,7 +33,10 @@ title __GRAFICS's Class Diagram__\n
     namespace Grafics {
       class com.stroganov.Grafics.Report {
           ~ bestTransaction : double
+          ~ countBadDeal : int
+          ~ countGoodDeal : int
           ~ countTransactions : int
+          ~ profitPercentage : double
           ~ worseTransaction : double
           - changesAllBalance : ArrayList<Double>
           - finishBalance : double
@@ -43,6 +46,8 @@ title __GRAFICS's Class Diagram__\n
           + getBestTransaction()
           + getChangesAllBalance()
           + getCountTransactions()
+          + getFinishBalance()
+          + getProfitPercentage()
           + getWorseTransaction()
           + prepareReport()
           + printLn()

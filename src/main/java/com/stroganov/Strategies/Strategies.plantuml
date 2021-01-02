@@ -10,7 +10,7 @@ title __STRATEGIES's Class Diagram__\n
           + AbstractRSA_Strategy()
           + getTransactionArray()
           + printLn()
-          {abstract} + startAbstractStrategy()
+          {abstract} + runStrategy()
       }
     }
   }
@@ -54,7 +54,51 @@ title __STRATEGIES's Class Diagram__\n
     namespace Strategies {
       class com.stroganov.Strategies.RSA_StrategyStopLoss {
           + RSA_StrategyStopLoss()
-          + startAbstractStrategy()
+          + runStrategy()
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Strategies {
+      abstract class com.stroganov.Strategies.StartStrategy {
+          + StartStrategy()
+          {abstract} + startStrategy()
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Strategies {
+      class com.stroganov.Strategies.StartStrategyRSA_StopLoss {
+          + StartStrategyRSA_StopLoss()
+          + startStrategy()
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Strategies {
+      class com.stroganov.Strategies.StrategyParam {
+          - buyLIne : int
+          - periodRSA : int
+          - sellLine : int
+          - stopLoss : int
+          + StrategyParam()
+          + equals()
+          + getBuyLIne()
+          + getPeriodRSA()
+          + getSellLine()
+          + getStopLoss()
+          + hashCode()
+          + setBuyLIne()
+          + setPeriodIndicator()
+          + setSellLine()
+          + setStopLoss()
+          + toString()
       }
     }
   }
@@ -63,6 +107,7 @@ title __STRATEGIES's Class Diagram__\n
   namespace com.stroganov {
     namespace Strategies {
       class com.stroganov.Strategies.TradeAction {
+          - brokerTax : Double
           + TradeAction()
           + buy()
           + getBalance()
@@ -100,6 +145,8 @@ title __STRATEGIES's Class Diagram__\n
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.Indicators.AbstractIndicator : rsa
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.Strategies.TradeAction : tradeAction
   com.stroganov.Strategies.RSA_StrategyStopLoss -up-|> com.stroganov.Strategies.AbstractRSA_Strategy
+  com.stroganov.Strategies.StartStrategy o-- com.stroganov.CandleStream : candleStream
+  com.stroganov.Strategies.StartStrategyRSA_StopLoss -up-|> com.stroganov.Strategies.StartStrategy
   com.stroganov.Strategies.TradeAction o-- com.stroganov.Strategies.Balance : balance
   com.stroganov.Strategies.Transaction o-- com.stroganov.Strategies.Balance : balance
 

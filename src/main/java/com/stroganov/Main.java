@@ -1,5 +1,7 @@
 package com.stroganov;
 
+import com.stroganov.Grafics.GraphicOfBalance;
+import com.stroganov.Grafics.GraphicOfTransactions;
 import com.stroganov.Grafics.Report;
 import com.stroganov.Strategies.StartStrategy;
 import com.stroganov.Strategies.StartStrategyRSA_StopLoss;
@@ -15,25 +17,32 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
 
-        String fileName = "Data/SBER_all2020_1H.txt";  //"Data/testcandle14.txt"; //"Data/SBER_200101_200920.txt";
+        String fileName = "Data/SBER_all2020_1H.txt";  //SBER_all2020_1H.txt
         CandleStream candleStream = new CandleStream(fileName);
         System.out.println(candleStream.getCandlesArrayList().size());
 
 
-        Map<StrategyParam, Report> resultMapStrategy = new HashMap<>();
+        Map<Report, StrategyParam> resultMapStrategy = new HashMap<>();
         StartStrategy startStrategy = new StartStrategyRSA_StopLoss(candleStream, 100000);
         StrategyParam strategyParam;
 
-        for (int i = 6; i <= 30; i++) {
-            strategyParam = new StrategyParam(i, 10, 90, 5);//reportArrayList.add(startStrategy.startStrategy(strategyParam));
-            resultMapStrategy.put(strategyParam, startStrategy.startStrategy(strategyParam));
-        }
+        ////
+
+
+
+            for (int i = 10; i <= 35; i++) {
+                for (int sell = 65; sell <= 100; sell++) {
+                    strategyParam = new StrategyParam(13, i, sell, 8);//13,31,71,8
+                    resultMapStrategy.put(startStrategy.startStrategy(strategyParam), strategyParam);
+                }
+            }
+
 
 /////
-        Collection<Report> reportCollection = resultMapStrategy.values();
+        Collection<Report> reportCollection = resultMapStrategy.keySet();
         ArrayList<Report> reportArrayList = new ArrayList<>(reportCollection);
 
-        int indexOfBestReport=0;
+        int indexOfBestReport = 0;
         double bestBalance = 0;
 
         for (int i = 0; i < reportArrayList.size(); i++) {
@@ -44,12 +53,11 @@ public class Main {
             }
         }
 
-        reportArrayList.get(indexOfBestReport).printReport();
+        Report bestReport = reportArrayList.get(indexOfBestReport);
+        bestReport.printReport();
 
-        //resultMapStrategy.get()
-
-
-///////
+        ///////
+        System.out.println(resultMapStrategy.get(bestReport).toString());
 
 
         //// стратегия
@@ -63,7 +71,7 @@ public class Main {
         //     System.out.println("С отчетом что то не так!!!");
         // }
 
-        // GraphicOfTransactions.drawGraphic(report);
+         GraphicOfTransactions.drawGraphic(bestReport);
         // GraphicOfBalance.drawGraphic(rsa_strategyStopLoss.getTransactionArray());
 
 

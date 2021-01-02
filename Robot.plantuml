@@ -140,6 +140,30 @@ title __ROBOT's Class Diagram__\n
 
   namespace com.stroganov {
     namespace Strategies {
+      abstract class com.stroganov.Strategies.StartStrategy {
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Strategies {
+      class com.stroganov.Strategies.StartStrategyRSA_StopLoss {
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Strategies {
+      class com.stroganov.Strategies.StrategyParam {
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Strategies {
       class com.stroganov.Strategies.TradeAction {
       }
     }
@@ -166,6 +190,8 @@ title __ROBOT's Class Diagram__\n
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.Indicators.AbstractIndicator : rsa
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.Strategies.TradeAction : tradeAction
   com.stroganov.Strategies.RSA_StrategyStopLoss -up-|> com.stroganov.Strategies.AbstractRSA_Strategy
+  com.stroganov.Strategies.StartStrategy o-- com.stroganov.CandleStream : candleStream
+  com.stroganov.Strategies.StartStrategyRSA_StopLoss -up-|> com.stroganov.Strategies.StartStrategy
   com.stroganov.Strategies.TradeAction o-- com.stroganov.Strategies.Balance : balance
   com.stroganov.Strategies.Transaction o-- com.stroganov.Strategies.Balance : balance
 

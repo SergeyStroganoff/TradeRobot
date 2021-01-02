@@ -6,13 +6,15 @@ import com.stroganov.Grafics.Report;
 public abstract class StartStrategy {
 
     CandleStream candleStream;
+   // Balance balance;
+   // Report report;
+   // TradeAction tradeAction;
+    double startMoney;
 
 
     public StartStrategy(CandleStream candleStream, double startMoney) {
         this.candleStream = candleStream;
-        Balance balance = new Balance(startMoney);
-        Report report = new Report(balance);
-        TradeAction tradeAction = new TradeAction(balance);
+        this.startMoney = startMoney;
 
     }
 

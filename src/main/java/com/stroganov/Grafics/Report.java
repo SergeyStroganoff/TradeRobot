@@ -43,6 +43,10 @@ public class Report {
         return worseTransaction;
     }
 
+    public ArrayList<Transaction> getTransactionArrayList() {
+        return transactionArrayList;
+    }
+
     public void printLn(String string) {
         System.out.println(string);
     }

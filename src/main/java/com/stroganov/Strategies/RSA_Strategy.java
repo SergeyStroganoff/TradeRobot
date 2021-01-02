@@ -37,7 +37,7 @@ public class RSA_Strategy {
         return transactionArrayList;
     }
 
-    public void startStrategy(int buyLine, int sellLine) {
+    public void startStrategy(int buyLine, int sellLine, int stopLoss) {
 
         boolean prepareToBuy = false;
         boolean prepareToSell = false;

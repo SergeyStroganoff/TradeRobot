@@ -31,6 +31,6 @@ public abstract class AbstractRSA_Strategy {
         }
         return transactionArrayList;
     }
-    public abstract void  runStrategy(int buyLine, int sellLine);
+    public abstract void  runStrategy(StrategyParam strategyParam);
 
 }
