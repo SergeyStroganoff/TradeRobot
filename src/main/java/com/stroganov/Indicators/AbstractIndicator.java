@@ -16,11 +16,12 @@ public abstract class AbstractIndicator {
     int period;
 
     public AbstractIndicator(CandleStream candleStream, int period) {
-        if (period<1){throw new IllegalArgumentException();}
+        if (period < 1) {
+            throw new IllegalArgumentException("Период индикатора меньше 1 ");
+        }
         this.candlesArrayList = candleStream.getCandlesArrayList();
         this.period = period;
         calculateIndicator();
-
     }
 
     public abstract void calculateIndicator();
@@ -30,18 +31,22 @@ public abstract class AbstractIndicator {
         return arrayListIndicator;
     }
 
-    public void saveArrayIndicatorFile(String fileName){
+    public void saveArrayIndicatorFile(String fileName) {
 
-        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+        if (fileName.isEmpty() & fileName == null) {
+            throw new IllegalArgumentException("Имя файла для сохранения массива индикатора пусто");
+        }
 
-            for (Double index:arrayListIndicator) {
-                writer.write(index +"\n");
+        if (getArrayListIndicator().isEmpty()) { throw new ArrayStoreException("Ошибка сохранения массива индекса "+ this.getClass() + " Массив пустой");
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Double index : arrayListIndicator) {
+                writer.write(index + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
 }

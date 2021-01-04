@@ -16,13 +16,11 @@ RSI = 100 — 100/ (1+RS)
 
  */
 
-import com.stroganov.Candle;
 import com.stroganov.CandleStream;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class RSA_Indicator extends AbstractIndicator {
 

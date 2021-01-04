@@ -3,6 +3,7 @@ package com.stroganov.Strategies;
 import com.stroganov.Candle;
 import com.stroganov.CandleStream;
 import com.stroganov.Indicators.AbstractIndicator;
+import com.stroganov.Indicators.IndicatorContainer;
 import com.stroganov.Indicators.RSA_Indicator;
 
 import java.util.ArrayList;
@@ -15,9 +16,10 @@ public abstract class AbstractRSA_Strategy {
     int paperCount;
     ArrayList<Transaction> transactionArrayList = new ArrayList<>();
 
-    public AbstractRSA_Strategy(CandleStream candleStream, TradeAction tradeAction, int paperCount, int period) {
+    public AbstractRSA_Strategy(CandleStream candleStream, TradeAction tradeAction, int paperCount, int period, IndicatorContainer container) {
         this.candleStream = candleStream;
-        this.rsa = new RSA_Indicator(candleStream, period);
+       ////// this.rsa = new RSA_Indicator(candleStream, period);
+        this.rsa = container.getIndicatorByPeriod(period);
         this.paperCount = paperCount;
         this.tradeAction = tradeAction;
     }
@@ -31,6 +33,8 @@ public abstract class AbstractRSA_Strategy {
         }
         return transactionArrayList;
     }
+
+
     public abstract void  runStrategy(StrategyParam strategyParam);
 
 }

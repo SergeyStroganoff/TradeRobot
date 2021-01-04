@@ -18,6 +18,6 @@ public abstract class StartStrategy {
 
     }
 
-    public abstract Report startStrategy(StrategyParam strategyParam);
+    public abstract Report testStrategy(StrategyParam strategyParam);
 
 }
