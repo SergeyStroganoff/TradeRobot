@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class Report {
 
@@ -95,19 +96,26 @@ public class Report {
     public void printReport() {
         printLn("Начальный баланс средств: " + startMoney);
         printLn("Итоговый баланс средств: " +  String.format("%.2f",finishBalance));
-        printLn("Количество сделок: " + countTransactions);
-        printLn("Лучшая сделка: " +  String.format("%.2f",bestTransaction));
-        printLn("Худшая сделка: " +  String.format("%.2f",worseTransaction));
+        printLn("Количество сделок: " + getCountTransactions());
+        printLn("Лучшая сделка: " +  String.format("%.2f",getBestTransaction()));
+        printLn("Худшая сделка: " +  String.format("%.2f",getWorseTransaction()));
         printLn("Количество сделок в плюс: " + countGoodDeal);
         printLn("Количество сделок в минус: " + countBadDeal);
-        printLn("Прибыльность стратегии в процентах: " +  String.format("%.2f",profitPercentage) +"%");
-        printLn("Список всех транзакций: ");
-
-        for (Transaction transaction : transactionArrayList) {
-            printLn(transaction.toString());
-        }
+        printLn("Прибыльность стратегии в процентах: " +  String.format("%.2f",getProfitPercentage()) +"%");
+        // printLn("Список всех транзакций: ");
+        //  for (Transaction transaction : transactionArrayList) {
+        //     printLn(transaction.toString());
+        // }
 
     }
-/// TODO
+
+    public static Comparator<Report> compareReportByMaxBalance() {
+        return (o1, o2) -> (int) (o1.getFinishBalance() - o2.getFinishBalance());
+    }
+
+    public static Comparator<Report> compareReportByProfitPercentage() {
+        return (o1, o2) -> (int) (o1.getProfitPercentage() - o2.getProfitPercentage());
+    }
+
 
 }

@@ -30,7 +30,6 @@ public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
 
             float countPapers = tradeAction.getBalance().getPapers();
 
-
             if (rsaIndicator < strategyParam.getBuyLIne() && !prepareToBuy && countPapers == 0) {
                 prepareToBuy = true;
                if (logPrint)printLn("Готовимся к покупке");
@@ -50,7 +49,7 @@ public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
                     prepareToSell = false;
                     printLn("Stop Loss Detected ");
                     transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));
-                  if (logPrint) printLn("Продали акции в колличестве: " + paperCount + " по цене:" + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
+                  if (logPrint) printLn("Продали акции в количестве: " + paperCount + " по цене: " + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
                 }
             }
 
@@ -60,7 +59,6 @@ public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
                if (logPrint)printLn("Готовимся к продаже ");
             }
 
-
             if (prepareToSell) { // продажа при условии RSA> предыдущего RSA,
                 if (rsaIndicator < saveRsaIndicator && tradeAction.getBalance().getPapers() > 0) {  // saveRsaIndicator
                     transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));
@@ -68,7 +66,6 @@ public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
                   if (logPrint) printLn("Продали акции в колличестве: " + paperCount + " по цене:" + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
                 }
             }
-
 
             index++;
             saveRsaIndicator = rsaIndicator;
