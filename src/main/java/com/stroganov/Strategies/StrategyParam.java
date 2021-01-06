@@ -73,7 +73,8 @@ public class StrategyParam {
     @Override
     public String toString() {
         return "StrategyParam{" +
-                "periodRSA=" + periodOne +
+                "periodOne=" + periodOne +
+                ", periodTwo=" + periodTwo +
                 ", buyLIne=" + buyLIne +
                 ", sellLine=" + sellLine +
                 ", stopLoss=" + stopLoss +

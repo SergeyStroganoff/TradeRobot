@@ -14,7 +14,7 @@ public class MainSMA {
 
     public static void main(String[] args) {
 
-        String fileName = "Data/SBER_all2020_1H.txt";  //SBER_all2020_1H.txt //SBER_201101_210106.txt
+        String fileName = "Data/SBER_all2020_1H.txt";  //SBER_all2020_1H.txt //SBER_201101_210106.txt// SBER-30M-2020.txt //Data/SBER_1H-2014-2020.txt
         CandleStream candleStream = new CandleStream(fileName);
         IndicatorContainer containerSMA = new IndicatorContainer(candleStream, Indicators.SMA);
         System.out.println(candleStream.getCandlesArrayList().size());
@@ -27,15 +27,12 @@ public class MainSMA {
         long startTime = System.nanoTime();
 
 
-        for (int periodOne = 9; periodOne < 29; periodOne++) {
-            //for (int sellLine = 68; sellLine <= 72; sellLine++) {
-            for (int buyLine = 0; buyLine < 1; buyLine++) {
-                //     for (int stopLoss = -5; stopLoss <= 16; stopLoss++) {
-                strategyParam = new StrategyParam(periodOne,0, buyLine, 0, 0);
+        for (int periodOne = 7; periodOne < 20; periodOne++) {
+            for (int periodTwo = 5; periodTwo < 6; periodTwo++) {
+                strategyParam = new StrategyParam(periodOne,periodTwo, 0, 0, 0);
                 resultMapStrategy.put(startStrategy.testStrategy(strategyParam, "SMA_Strategy"), strategyParam);
-                //     }
+
             }
-            //  }
         }
 
         long finishTime = System.nanoTime();

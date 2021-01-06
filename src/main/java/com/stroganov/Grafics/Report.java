@@ -66,7 +66,7 @@ public class Report {
         if (transactionArrayList.isEmpty()) {
             return false;
         }
-        Double lastTransactionPrice = transactionArrayList.get(transactionArrayList.size() - 1).getPrice();
+        double lastTransactionPrice = transactionArrayList.get(transactionArrayList.size() - 1).getPrice();
         finishBalance = balance.getAllBalance(lastTransactionPrice);
         countTransactions = transactionArrayList.size();
 

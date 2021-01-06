@@ -31,6 +31,8 @@ public class SMA_Strategy extends AbstractStrategy {
         //     }
 
         printLn("Период выбранного индикатора равен " + indicatorOne.getPeriod());
+        printLn("Период выбранного индикатора равен " + indicatorTwo.getPeriod());
+
 
         for (double currentIndicator : indicatorOne.getArrayListIndicator()) {
 
@@ -44,7 +46,8 @@ public class SMA_Strategy extends AbstractStrategy {
             float countPapers = tradeAction.getBalance().getPapers();
 
 
-            if (currentIndicator < currentCandle.getCloseCandle() && countPapers == 0) {
+            if (currentIndicator < indicatorTwo.getArrayListIndicator().get(index) && countPapers == 0) { // currentCandle.getCloseCandle()
+            //if (currentIndicator < currentCandle.getCloseCandle() && countPapers == 0) { // currentCandle.getCloseCandle()
 
                 transactionArrayList.add(tradeAction.buy(paperCount, candleStream.getCandlesArrayList().get(index).getCloseCandle(), index)); // поменял свечу для получения цены
                 if (logPrint)
@@ -52,7 +55,8 @@ public class SMA_Strategy extends AbstractStrategy {
             }
 
 
-            if (currentIndicator >  currentCandle.getCloseCandle() && countPapers > 0) {
+            if (currentIndicator >  indicatorTwo.getArrayListIndicator().get(index) && countPapers > 0) {
+          //  if (currentIndicator >  currentCandle.getCloseCandle() && countPapers > 0) {
                 transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));
                 if (logPrint)
                     printLn("Продали акции в количестве: " + paperCount + " по цене:" + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + "   " + candleStream.getCandlesArrayList().get(index).getData().toString());

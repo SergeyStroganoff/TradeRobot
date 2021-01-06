@@ -34,7 +34,7 @@ public class Transaction {
         return balance;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
