@@ -27,6 +27,7 @@ public class RSA_Strategy {
         this.paperCount = paperCount;
         this.tradeAction = tradeAction;
     }
+
     public void printLn(String string) {
         System.out.println(string);
     }
@@ -49,7 +50,7 @@ public class RSA_Strategy {
 
             StringBuffer stringBuffer = new StringBuffer();
             Candle currentCandle = candleStream.getCandlesArrayList().get(index);
-            stringBuffer.append(currentCandle.getData()).append(" ").append(currentCandle.getTime()).append(" RSI   ").append(currentCandle.getRsaIndicator());
+            stringBuffer.append(currentCandle.getData()).append(" ").append(currentCandle.getTime()).append(" RSI   ").append(currentCandle.getIndicator());
             System.out.println(stringBuffer);
 
             float countPapers = tradeAction.getBalance().getPapers();

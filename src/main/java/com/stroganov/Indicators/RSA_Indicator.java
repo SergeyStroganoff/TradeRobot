@@ -25,6 +25,7 @@ import java.util.Collections;
 public class RSA_Indicator extends AbstractIndicator {
 
     public RSA_Indicator(CandleStream candleStream, int period) {
+
         super(candleStream, period);
     }
 
@@ -61,7 +62,7 @@ public class RSA_Indicator extends AbstractIndicator {
         }
         if (average(downBarsClose) == 0) return 100;
         indexResult = 100 - 100 / (1 + average(upBarsClose) / average(downBarsClose));
-        candlesArrayList.get(indexCandle).setRsaIndicator(indexResult);                 // временно сохраняем значение RSI
+        candlesArrayList.get(indexCandle).setIndicator((float) indexResult);                 // временно сохраняем значение RSI
         return indexResult;
     }
 
@@ -72,9 +73,9 @@ public class RSA_Indicator extends AbstractIndicator {
         }
 
         for (int n = 0; n < period; n++) {
-           arrayListIndicator.add(0d);
+            arrayListIndicator.add(0d);
         }
-       Collections.reverse(arrayListIndicator);
+        Collections.reverse(arrayListIndicator);
 
     }
 }

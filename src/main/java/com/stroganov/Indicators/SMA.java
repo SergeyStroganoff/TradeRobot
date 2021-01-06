@@ -18,16 +18,14 @@ public class SMA extends AbstractIndicator {
 
 
     public SMA(CandleStream candleStream, int period) {
-
         super(candleStream, period);
     }
 
     public double calculateSMAOneCandle(int period, int indexCandle) {
         float smaResult;
         smaResult = 0;
-        for (int i = period; i > 0; i--) {
-            smaResult += candlesArrayList.get(indexCandle).getCloseCandle();
-            indexCandle--;
+        for (int i = 0; i < period; i++) {
+            smaResult += candlesArrayList.get(indexCandle-i).getCloseCandle();
         }
         return smaResult / period;
     }
@@ -35,9 +33,12 @@ public class SMA extends AbstractIndicator {
     @Override
     public void calculateIndicator() {
 
-        for (int i = candlesArrayList.size() - 1; i >period; i--) {
-            //   System.out.println(period+" +++++++++++ "+ i);
-            arrayListIndicator.add(calculateSMAOneCandle(period, i));
+        Double indicator;
+
+        for (int i = candlesArrayList.size() - 1; i >=period; i--) {
+
+            indicator = calculateSMAOneCandle(period, i);
+            arrayListIndicator.add(indicator);
         }
         for (int n = 1; n < period; n++) {
             arrayListIndicator.add(0d);

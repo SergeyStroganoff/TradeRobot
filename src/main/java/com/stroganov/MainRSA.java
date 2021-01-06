@@ -4,36 +4,37 @@ import com.stroganov.Grafics.GraphicOfBalance;
 import com.stroganov.Grafics.GraphicOfTransactions;
 import com.stroganov.Grafics.Report;
 import com.stroganov.Indicators.IndicatorContainer;
+import com.stroganov.Indicators.Indicators;
 import com.stroganov.Strategies.StartStrategy;
-import com.stroganov.Strategies.StartStrategyRSA_StopLoss;
+import com.stroganov.Strategies.StartStrategyNow;
 import com.stroganov.Strategies.StrategyParam;
 
 import java.util.*;
 
-public class Main {
+public class MainRSA {
 
     public static void main(String[] args) {
         // write your code here
 
         String fileName = "Data/SBER_all2020_1H.txt";  //SBER_all2020_1H.txt
         CandleStream candleStream = new CandleStream(fileName);
-        IndicatorContainer container = new IndicatorContainer(candleStream);
+        IndicatorContainer containerRSA = new IndicatorContainer(candleStream, Indicators.RSA);
         System.out.println(candleStream.getCandlesArrayList().size());
         Map<Report, StrategyParam> resultMapStrategy = new HashMap<>();
         StrategyParam strategyParam;
 
-        StartStrategy startStrategy = new StartStrategyRSA_StopLoss(candleStream, container, 100000);
+        StartStrategy startStrategy = new StartStrategyNow(candleStream, containerRSA, 100000);
 
         ////
         long startTime = System.nanoTime();
 
 
-        for (int period = 7; period < 14; period++) {
+        for (int periodOne = 10; periodOne < 16; periodOne++) {
             for (int sellLine = 68; sellLine <= 72; sellLine++) {
                 for (int buyLine = 28; buyLine <= 34; buyLine++) {
                     //     for (int stopLoss = -5; stopLoss <= 16; stopLoss++) {
-                    strategyParam = new StrategyParam(period, buyLine, sellLine, 8);//13,30,68,8 StrategyParam{periodRSA=11, buyLIne=29, sellLine=72, stopLoss=12}
-                    resultMapStrategy.put(startStrategy.testStrategy(strategyParam), strategyParam);
+                    strategyParam = new StrategyParam(periodOne, 0, buyLine, sellLine, 8);//13,30,68,8 StrategyParam{periodRSA=11, buyLIne=29, sellLine=72, stopLoss=12}
+                    resultMapStrategy.put(startStrategy.testStrategy(strategyParam,"RSA_StrategyStopLoss"), strategyParam);
                     //     }
                 }
             }

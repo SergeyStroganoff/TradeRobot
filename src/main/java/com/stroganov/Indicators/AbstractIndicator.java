@@ -24,6 +24,10 @@ public abstract class AbstractIndicator {
         calculateIndicator();
     }
 
+    public int getPeriod() {
+        return period;
+    }
+
     public abstract void calculateIndicator();
 
 

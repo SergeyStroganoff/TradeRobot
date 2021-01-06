@@ -4,10 +4,10 @@ import com.stroganov.Candle;
 import com.stroganov.CandleStream;
 import com.stroganov.Indicators.IndicatorContainer;
 
-public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
+public class RSA_StrategyStopLoss extends AbstractStrategy {
 
-    public RSA_StrategyStopLoss(CandleStream candleStream, TradeAction tradeAction, int paperCount, int period, IndicatorContainer container) {
-        super(candleStream, tradeAction, paperCount, period, container);
+    public RSA_StrategyStopLoss(CandleStream candleStream, TradeAction tradeAction, int paperCount, int periodOne, int periodTwo, IndicatorContainer container) {
+        super(candleStream, tradeAction, paperCount, periodOne, periodTwo, container);
     }
 
     @Override
@@ -19,12 +19,12 @@ public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
         int index = 0;
         Double saveRsaIndicator = 0d;
 
-        for (double rsaIndicator : rsa.getArrayListIndicator()) {
+        for (double rsaIndicator : indicatorOne.getArrayListIndicator()) {
 
             if (logPrint){
                 StringBuffer stringBuffer = new StringBuffer();
                 Candle currentCandle = candleStream.getCandlesArrayList().get(index);
-                stringBuffer.append(currentCandle.getData()).append(" ").append(currentCandle.getTime()).append(" RSI   ").append(currentCandle.getRsaIndicator());
+                stringBuffer.append(currentCandle.getData()).append(" ").append(currentCandle.getTime()).append(" RSI   ").append(currentCandle.getIndicator());
                 System.out.println(stringBuffer);
             }
 
@@ -45,7 +45,7 @@ public class RSA_StrategyStopLoss extends AbstractRSA_Strategy {
 
 
             if (index > 3 && index < candleStream.getCandlesArrayList().size()-1 ) {
-                if (rsaIndicator < rsa.getArrayListIndicator().get(index - 3)-strategyParam.getStopLoss() && countPapers > 0) { /// !!!
+                if (rsaIndicator < indicatorOne.getArrayListIndicator().get(index - 3)-strategyParam.getStopLoss() && countPapers > 0) { /// !!!
                     prepareToSell = false;
                     printLn("Stop Loss Detected ");
                     transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));

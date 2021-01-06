@@ -70,6 +70,22 @@ title __ROBOT's Class Diagram__\n
 
   namespace com.stroganov {
     namespace Indicators {
+      class com.stroganov.Indicators.IndicatorContainer {
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Indicators {
+      class com.stroganov.Indicators.Momentum {
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Indicators {
       class com.stroganov.Indicators.RSA_Indicator {
       }
     }
@@ -101,14 +117,14 @@ title __ROBOT's Class Diagram__\n
   
 
   namespace com.stroganov {
-    class com.stroganov.Main {
+    class com.stroganov.MainRSA {
     }
   }
   
 
   namespace com.stroganov {
     namespace Strategies {
-      abstract class com.stroganov.Strategies.AbstractRSA_Strategy {
+      abstract class com.stroganov.Strategies.AbstractStrategy {
       }
     }
   }
@@ -148,7 +164,7 @@ title __ROBOT's Class Diagram__\n
 
   namespace com.stroganov {
     namespace Strategies {
-      class com.stroganov.Strategies.StartStrategyRSA_StopLoss {
+      class com.stroganov.Strategies.StartStrategyNow {
       }
     }
   }
@@ -180,18 +196,21 @@ title __ROBOT's Class Diagram__\n
 
   com.stroganov.Grafics.Report o-- com.stroganov.Strategies.Balance : balance
   com.stroganov.Indicators.EMA -up-|> com.stroganov.Indicators.AbstractIndicator
+  com.stroganov.Indicators.IndicatorContainer o-- com.stroganov.Indicators.AbstractIndicator : abstractIndicator
+  com.stroganov.Indicators.IndicatorContainer o-- com.stroganov.CandleStream : candleStream
   com.stroganov.Indicators.RSA_Indicator -up-|> com.stroganov.Indicators.AbstractIndicator
   com.stroganov.Indicators.RSA_Indicator2 -up-|> com.stroganov.Indicators.AbstractIndicator
   com.stroganov.Indicators.SMA -up-|> com.stroganov.Indicators.AbstractIndicator
-  com.stroganov.Strategies.AbstractRSA_Strategy o-- com.stroganov.CandleStream : candleStream
-  com.stroganov.Strategies.AbstractRSA_Strategy o-- com.stroganov.Indicators.AbstractIndicator : rsa
-  com.stroganov.Strategies.AbstractRSA_Strategy o-- com.stroganov.Strategies.TradeAction : tradeAction
+  com.stroganov.Strategies.AbstractStrategy o-- com.stroganov.CandleStream : candleStream
+  com.stroganov.Strategies.AbstractStrategy o-- com.stroganov.Indicators.AbstractIndicator : rsa
+  com.stroganov.Strategies.AbstractStrategy o-- com.stroganov.Strategies.TradeAction : tradeAction
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.CandleStream : candleStream
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.Indicators.AbstractIndicator : rsa
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.Strategies.TradeAction : tradeAction
-  com.stroganov.Strategies.RSA_StrategyStopLoss -up-|> com.stroganov.Strategies.AbstractRSA_Strategy
+  com.stroganov.Strategies.RSA_StrategyStopLoss -up-|> com.stroganov.Strategies.AbstractStrategy
   com.stroganov.Strategies.StartStrategy o-- com.stroganov.CandleStream : candleStream
-  com.stroganov.Strategies.StartStrategyRSA_StopLoss -up-|> com.stroganov.Strategies.StartStrategy
+  com.stroganov.Strategies.StartStrategyNow -up-|> com.stroganov.Strategies.StartStrategy
+  com.stroganov.Strategies.StartStrategyNow o-- com.stroganov.Indicators.IndicatorContainer : container
   com.stroganov.Strategies.TradeAction o-- com.stroganov.Strategies.Balance : balance
   com.stroganov.Strategies.Transaction o-- com.stroganov.Strategies.Balance : balance
 

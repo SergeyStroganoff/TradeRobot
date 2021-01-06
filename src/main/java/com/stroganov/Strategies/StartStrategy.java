@@ -6,9 +6,6 @@ import com.stroganov.Grafics.Report;
 public abstract class StartStrategy {
 
     CandleStream candleStream;
-   // Balance balance;
-   // Report report;
-   // TradeAction tradeAction;
     double startMoney;
 
 
@@ -18,6 +15,6 @@ public abstract class StartStrategy {
 
     }
 
-    public abstract Report testStrategy(StrategyParam strategyParam);
+    public abstract Report testStrategy(StrategyParam strategyParam, String name);
 
 }

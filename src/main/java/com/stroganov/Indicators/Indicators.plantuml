@@ -30,6 +30,25 @@ title __INDICATORS's Class Diagram__\n
 
   namespace com.stroganov {
     namespace Indicators {
+      class com.stroganov.Indicators.IndicatorContainer {
+          ~ indicators : AbstractIndicator[]
+          + IndicatorContainer()
+          + getIndicatorByPeriod()
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Indicators {
+      class com.stroganov.Indicators.Momentum {
+      }
+    }
+  }
+  
+
+  namespace com.stroganov {
+    namespace Indicators {
       class com.stroganov.Indicators.RSA_Indicator {
           + RSA_Indicator()
           + calculateIndexOneCandle()
@@ -71,6 +90,8 @@ title __INDICATORS's Class Diagram__\n
   
 
   com.stroganov.Indicators.EMA -up-|> com.stroganov.Indicators.AbstractIndicator
+  com.stroganov.Indicators.IndicatorContainer o-- com.stroganov.Indicators.AbstractIndicator : abstractIndicator
+  com.stroganov.Indicators.IndicatorContainer o-- com.stroganov.CandleStream : candleStream
   com.stroganov.Indicators.RSA_Indicator -up-|> com.stroganov.Indicators.AbstractIndicator
   com.stroganov.Indicators.RSA_Indicator2 -up-|> com.stroganov.Indicators.AbstractIndicator
   com.stroganov.Indicators.SMA -up-|> com.stroganov.Indicators.AbstractIndicator

@@ -13,7 +13,7 @@ public class Candle {
     private final float lowCandle;
     private final float closeCandle;
     private final float Volume;
-    private  Double rsaIndicator=0d;  /// времянка
+    private  float indicator=0f;  /// времянка
 
     public Candle(String ticker, int period, LocalDate data, int time, float openCandle, float highCandle, float lowCandle, float closeCandle, float volume) {
         this.ticker = ticker;
@@ -27,12 +27,12 @@ public class Candle {
         Volume = volume;
     }
 
-    public void setRsaIndicator(Double rsaIndicator) {  /// времянка
-        this.rsaIndicator = rsaIndicator;
+    public void setIndicator(float indicator) {  /// времянка
+        this.indicator = indicator;
     }
 
-    public Double getRsaIndicator() {     /// времянка
-        return rsaIndicator;
+    public float getIndicator() {     /// времянка
+        return indicator;
     }
 
     public String getTicker() {

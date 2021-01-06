@@ -22,5 +22,15 @@ N — период сглаживания.
 SMMA (i) = (SMMA (i — 1) * (N — 1) + CLOSE (i)) / N
 */
 
-public class SMMA {
+import com.stroganov.CandleStream; //TODO
+
+public class SMMA extends AbstractIndicator{
+    public SMMA(CandleStream candleStream, int period) {
+        super(candleStream, period);
+    }
+
+    @Override
+    public void calculateIndicator() {
+
+    }
 }

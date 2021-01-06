@@ -2,12 +2,12 @@ package com.stroganov.Strategies;
 
 public class Balance {
 
-    private Double freeMoney;
+    private double freeMoney;
     private int papers;
-    private Double allBalance;
+    private double allBalance;
 
 
-    public Balance(Double freeMoney) {
+    public Balance(double freeMoney) {
         this.freeMoney = freeMoney;
         papers = 0;
         allBalance = freeMoney;
@@ -17,16 +17,16 @@ public class Balance {
 
     }
 
-    public Double getFreeMoney() {
+    public double getFreeMoney() {
         return freeMoney;
     }
 
-    public Double getAllBalance(Double price) {
+    public double getAllBalance(double price) {
         allBalance = freeMoney + papers * price;
         return allBalance;
     }
 
-    public Double getAllBalance() {
+    public double getAllBalance() {
         return allBalance;
     }
 
@@ -34,7 +34,7 @@ public class Balance {
         return papers;
     }
 
-    public void setFreeMoney(Double freeMoney) {
+    public void setFreeMoney(double freeMoney) {
         this.freeMoney = freeMoney;
     }
 
@@ -42,7 +42,7 @@ public class Balance {
         this.papers = papers;
     }
 
-    public void setAllBalance(Double allBalance) {
+    public void setAllBalance(double allBalance) {
         this.allBalance = allBalance;
     }
 }

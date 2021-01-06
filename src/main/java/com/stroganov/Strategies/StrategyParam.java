@@ -4,21 +4,27 @@ import java.util.Objects;
 
 public class StrategyParam {
 
-   private int periodRSA;
+   private int periodOne;
+   private int periodTwo;
    private int buyLIne;
    private int sellLine;
+
    private int stopLoss;
 
-    public StrategyParam(int periodIndicator, int buyLIne, int sellLine, int stopLoss) {
-        this.periodRSA = periodIndicator;
+    public StrategyParam(int periodOne,int periodTwo, int buyLIne, int sellLine, int stopLoss) {
+        this.periodOne = periodOne;
+        this.periodTwo = periodTwo;
         this.buyLIne = buyLIne;
         this.sellLine = sellLine;
         this.stopLoss = stopLoss;
     }
 
 
-    public int getPeriodRSA() {
-        return periodRSA;
+    public int getPeriodOne() {
+        return periodOne;
+    }
+    public int getPeriodTwo() {
+        return periodTwo;
     }
 
     public int getBuyLIne() {
@@ -34,7 +40,7 @@ public class StrategyParam {
     }
 
     public void setPeriodIndicator(int periodIndicator) {
-        this.periodRSA = periodIndicator;
+        this.periodOne = periodIndicator;
     }
 
     public void setBuyLIne(int buyLIne) {
@@ -55,19 +61,19 @@ public class StrategyParam {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StrategyParam that = (StrategyParam) o;
-        return periodRSA == that.periodRSA && buyLIne == that.buyLIne && sellLine == that.sellLine && stopLoss == that.stopLoss;
+        return periodOne == that.periodOne && buyLIne == that.buyLIne && sellLine == that.sellLine && stopLoss == that.stopLoss;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(periodRSA, buyLIne, sellLine, stopLoss);
+        return Objects.hash(periodOne, buyLIne, sellLine, stopLoss);
     }
 
 
     @Override
     public String toString() {
         return "StrategyParam{" +
-                "periodRSA=" + periodRSA +
+                "periodRSA=" + periodOne +
                 ", buyLIne=" + buyLIne +
                 ", sellLine=" + sellLine +
                 ", stopLoss=" + stopLoss +

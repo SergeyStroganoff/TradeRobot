@@ -47,7 +47,8 @@ title __STROGANOV's Class Diagram__\n
   
 
   namespace com.stroganov {
-    class com.stroganov.Main {
+    class com.stroganov.MainRSA {
+        {static} + getBestReport()
         {static} + main()
     }
   }

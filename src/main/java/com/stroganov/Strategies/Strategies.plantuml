@@ -4,7 +4,7 @@ title __STRATEGIES's Class Diagram__\n
 
   namespace com.stroganov {
     namespace Strategies {
-      abstract class com.stroganov.Strategies.AbstractRSA_Strategy {
+      abstract class com.stroganov.Strategies.AbstractStrategy {
           ~ paperCount : int
           ~ transactionArrayList : ArrayList<Transaction>
           + AbstractRSA_Strategy()
@@ -63,8 +63,9 @@ title __STRATEGIES's Class Diagram__\n
   namespace com.stroganov {
     namespace Strategies {
       abstract class com.stroganov.Strategies.StartStrategy {
+          ~ startMoney : double
           + StartStrategy()
-          {abstract} + startStrategy()
+          {abstract} + testStrategy()
       }
     }
   }
@@ -72,9 +73,9 @@ title __STRATEGIES's Class Diagram__\n
 
   namespace com.stroganov {
     namespace Strategies {
-      class com.stroganov.Strategies.StartStrategyRSA_StopLoss {
+      class com.stroganov.Strategies.StartStrategyNow {
           + StartStrategyRSA_StopLoss()
-          + startStrategy()
+          + testStrategy()
       }
     }
   }
@@ -108,6 +109,7 @@ title __STRATEGIES's Class Diagram__\n
     namespace Strategies {
       class com.stroganov.Strategies.TradeAction {
           - brokerTax : Double
+          - logPrint : boolean
           + TradeAction()
           + buy()
           + getBalance()
@@ -138,15 +140,16 @@ title __STRATEGIES's Class Diagram__\n
   }
   
 
-  com.stroganov.Strategies.AbstractRSA_Strategy o-- com.stroganov.CandleStream : candleStream
-  com.stroganov.Strategies.AbstractRSA_Strategy o-- com.stroganov.Indicators.AbstractIndicator : rsa
-  com.stroganov.Strategies.AbstractRSA_Strategy o-- com.stroganov.Strategies.TradeAction : tradeAction
+  com.stroganov.Strategies.AbstractStrategy o-- com.stroganov.CandleStream : candleStream
+  com.stroganov.Strategies.AbstractStrategy o-- com.stroganov.Indicators.AbstractIndicator : rsa
+  com.stroganov.Strategies.AbstractStrategy o-- com.stroganov.Strategies.TradeAction : tradeAction
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.CandleStream : candleStream
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.Indicators.AbstractIndicator : rsa
   com.stroganov.Strategies.RSA_Strategy o-- com.stroganov.Strategies.TradeAction : tradeAction
-  com.stroganov.Strategies.RSA_StrategyStopLoss -up-|> com.stroganov.Strategies.AbstractRSA_Strategy
+  com.stroganov.Strategies.RSA_StrategyStopLoss -up-|> com.stroganov.Strategies.AbstractStrategy
   com.stroganov.Strategies.StartStrategy o-- com.stroganov.CandleStream : candleStream
-  com.stroganov.Strategies.StartStrategyRSA_StopLoss -up-|> com.stroganov.Strategies.StartStrategy
+  com.stroganov.Strategies.StartStrategyNow -up-|> com.stroganov.Strategies.StartStrategy
+  com.stroganov.Strategies.StartStrategyNow o-- com.stroganov.Indicators.IndicatorContainer : container
   com.stroganov.Strategies.TradeAction o-- com.stroganov.Strategies.Balance : balance
   com.stroganov.Strategies.Transaction o-- com.stroganov.Strategies.Balance : balance
 

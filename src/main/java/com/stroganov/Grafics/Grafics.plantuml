@@ -43,11 +43,14 @@ title __GRAFICS's Class Diagram__\n
           - startMoney : double
           - transactionArrayList : ArrayList<Transaction>
           + Report()
+          {static} + compareReportByMaxBalance()
+          {static} + compareReportByProfitPercentage()
           + getBestTransaction()
           + getChangesAllBalance()
           + getCountTransactions()
           + getFinishBalance()
           + getProfitPercentage()
+          + getTransactionArrayList()
           + getWorseTransaction()
           + prepareReport()
           + printLn()

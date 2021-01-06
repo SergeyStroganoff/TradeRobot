@@ -31,7 +31,7 @@ public class TradeAction {
 
         double payment = papersCount * price;
         double brokerPayment = brokerTax*payment;
-        if (logPrint) System.out.println("Оплата брокеру составила: " + brokerPayment);
+       // if (logPrint) System.out.println("Оплата брокеру составила: " + brokerPayment);
 
         balance.setPapers(balance.getPapers() + papersCount);
         balance.setFreeMoney(balance.getFreeMoney() - payment - brokerPayment);
