@@ -30,7 +30,7 @@ title __ROBOT's Class Diagram__\n
 
   namespace com.stroganov {
     namespace Grafics {
-      class com.stroganov.Grafics.GraphicOfRSAIndicator {
+      class com.stroganov.Grafics.GraphicOfIndicator {
       }
     }
   }

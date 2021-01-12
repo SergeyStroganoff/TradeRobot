@@ -31,6 +31,13 @@ public class StartStrategyNow extends StartStrategy {
                 strategy = new SMA_Strategy(candleStream, tradeAction, 400, strategyParam.getPeriodOne(),strategyParam.getPeriodTwo(), container);
                 break;
             }
+
+            case ("SMA_StrategyShort"): {
+                strategy = new SMA_StrategyShort(candleStream, tradeAction, 400, strategyParam.getPeriodOne(),strategyParam.getPeriodTwo(), container);
+                break;
+            }
+
+
             default: {
                 throw new IllegalArgumentException("Тип стратегии указан неверно");
             }

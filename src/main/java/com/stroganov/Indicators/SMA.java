@@ -35,7 +35,7 @@ public class SMA extends AbstractIndicator {
 
         Double indicator;
 
-        for (int i = candlesArrayList.size() - 1; i >=period; i--) {
+        for (int i = candlesArrayList.size() - 1; i >=period-1; i--) {  // огромная разница в стратегии разобраться с этим !!!!
 
             indicator = calculateSMAOneCandle(period, i);
             arrayListIndicator.add(indicator);

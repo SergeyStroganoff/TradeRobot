@@ -6,12 +6,12 @@ public class StrategyParam {
 
    private int periodOne;
    private int periodTwo;
-   private int buyLIne;
-   private int sellLine;
+   private float buyLIne;
+   private float sellLine;
 
-   private int stopLoss;
+   private float stopLoss;
 
-    public StrategyParam(int periodOne,int periodTwo, int buyLIne, int sellLine, int stopLoss) {
+    public StrategyParam(int periodOne,int periodTwo, float buyLIne, float sellLine, float stopLoss) {
         this.periodOne = periodOne;
         this.periodTwo = periodTwo;
         this.buyLIne = buyLIne;
@@ -27,15 +27,15 @@ public class StrategyParam {
         return periodTwo;
     }
 
-    public int getBuyLIne() {
+    public float getBuyLIne() {
         return buyLIne;
     }
 
-    public int getSellLine() {
+    public float getSellLine() {
         return sellLine;
     }
 
-    public int getStopLoss() {
+    public float getStopLoss() {
         return stopLoss;
     }
 

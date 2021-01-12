@@ -19,7 +19,6 @@ public class GraphicOfTransactions {
 
         ArrayList<Double> changBalance = report.getChangesAllBalance();
 
-
         XYSeries series = new XYSeries("Transactions");
 
         for (int i = 0; i < changBalance.size(); i++) {
@@ -42,11 +41,11 @@ public class GraphicOfTransactions {
         XYDataset xyDataset2 = new XYSeriesCollection(series2);//
 
 
-        JFreeChart chart = ChartFactory.createXYLineChart("График денежного баланса", "Транзакции", "Рубли", null, PlotOrientation.VERTICAL, true, true, true);
+        JFreeChart chart = ChartFactory.createXYLineChart("График прибыльности транзакций", "Транзакции", "Рубли", null, PlotOrientation.VERTICAL, true, true, true);
         final XYPlot plot = chart.getXYPlot();//
 
         plot.setDataset(0, xyDataset);
-        //  plot.setDataset(1, xyDataset2);
+          plot.setDataset(1, xyDataset2);
         //  plot.setRenderer(0, r1); //устанавливаем сглаживание
 
 

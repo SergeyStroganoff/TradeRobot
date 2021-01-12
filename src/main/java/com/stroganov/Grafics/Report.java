@@ -4,6 +4,8 @@ import com.stroganov.Strategies.Balance;
 import com.stroganov.Strategies.Transaction;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -70,11 +72,13 @@ public class Report {
         finishBalance = balance.getAllBalance(lastTransactionPrice);
         countTransactions = transactionArrayList.size();
 
-        for (int i = 0; i < transactionArrayList.size() - 1; i += 2) {
+        for (int i = 0; i < transactionArrayList.size() - 1; i++) {                         // при односторонних сделках i=+2;
             double balanceFirst = transactionArrayList.get(i).getBalance().getAllBalance();
             double balanceNext = transactionArrayList.get(i + 1).getBalance().getAllBalance();
             changesAllBalance.add(balanceNext - balanceFirst);
         }
+
+        if (changesAllBalance.isEmpty()) return false;
         bestTransaction = Collections.max(changesAllBalance);
         worseTransaction = Collections.min(changesAllBalance);
 
@@ -86,7 +90,7 @@ public class Report {
                 countBadDeal++;
             }
 
-            profitPercentage = (finishBalance-startMoney)/startMoney*100;
+            profitPercentage = (finishBalance - startMoney) / startMoney * 100;
 
         }
 
@@ -95,17 +99,33 @@ public class Report {
 
     public void printReport() {
         printLn("Начальный баланс средств: " + startMoney);
-        printLn("Итоговый баланс средств: " +  String.format("%.2f",finishBalance));
+        printLn("Итоговый баланс средств: " + String.format("%.2f", finishBalance));
         printLn("Количество сделок: " + getCountTransactions());
-        printLn("Лучшая сделка: " +  String.format("%.2f",getBestTransaction()));
-        printLn("Худшая сделка: " +  String.format("%.2f",getWorseTransaction()));
+        printLn("Лучшая сделка: " + String.format("%.2f", getBestTransaction()));
+        printLn("Худшая сделка: " + String.format("%.2f", getWorseTransaction()));
         printLn("Количество сделок в плюс: " + countGoodDeal);
         printLn("Количество сделок в минус: " + countBadDeal);
-        printLn("Прибыльность стратегии в процентах: " +  String.format("%.2f",getProfitPercentage()) +"%");
+        printLn("Прибыльность стратегии в процентах: " + String.format("%.2f", getProfitPercentage()) + "%");
         // printLn("Список всех транзакций: ");
         //  for (Transaction transaction : transactionArrayList) {
         //     printLn(transaction.toString());
         // }
+
+    }
+
+
+    public void saveReportToFile(String fileName) throws IOException {
+
+        FileWriter fileWriter = new FileWriter(fileName);
+
+        for (Transaction transaction : transactionArrayList) {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(transaction.getTradeDirect()).append(";").append(transaction.getCountPapers()).
+                          append(";").append(transaction.getPrice()).append(";").append(transaction.getBalance().getAllBalance()).append("\n");
+            fileWriter.write(stringBuilder.toString());
+
+        }
 
     }
 

@@ -4,7 +4,7 @@ public class TradeAction {
 
     Balance balance;
     private  Double  brokerTax = 0.00035;
-    private boolean logPrint=true;
+    private boolean logPrint=false;
 
     public TradeAction(Balance balance) {
         this.balance = balance;
