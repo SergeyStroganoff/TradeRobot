@@ -26,6 +26,7 @@ public class SMA extends AbstractIndicator {
         smaResult = 0;
         for (int i = 0; i < period; i++) {
             smaResult += candlesArrayList.get(indexCandle-i).getCloseCandle();
+            System.out.println(candlesArrayList.get(indexCandle-i).getCloseCandle());
         }
         return smaResult / period;
     }

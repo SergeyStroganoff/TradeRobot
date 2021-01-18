@@ -21,7 +21,7 @@ public class RSA_StrategyStopLoss extends AbstractStrategy {
 
         for (double rsaIndicator : indicatorOne.getArrayListIndicator()) {
 
-            if (logPrint){
+            if (logPrint) {
                 StringBuffer stringBuffer = new StringBuffer();
                 Candle currentCandle = candleStream.getCandlesArrayList().get(index);
                 stringBuffer.append(currentCandle.getData()).append(" ").append(currentCandle.getTime()).append(" RSI   ").append(currentCandle.getIndicator());
@@ -30,45 +30,54 @@ public class RSA_StrategyStopLoss extends AbstractStrategy {
 
             float countPapers = tradeAction.getBalance().getPapers();
 
-            if (rsaIndicator < strategyParam.getBuyLIne() && !prepareToBuy && countPapers == 0) {
-                prepareToBuy = true;
-               if (logPrint)printLn("Готовимся к покупке");
-            }
 
-            if (prepareToBuy) {  // покупка акций
-                if (rsaIndicator > saveRsaIndicator) { // saveRsaIndicator
-                    transactionArrayList.add(tradeAction.buy(paperCount, candleStream.getCandlesArrayList().get(index).getCloseCandle(), index)); // поменял свечу для получения цены
-                    prepareToBuy = false;
-                   if (logPrint) printLn("Купили акции по цене " + candleStream.getCandlesArrayList().get(index).getCloseCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
+            if (rsaIndicator > 0 ) {
+
+                if (rsaIndicator < strategyParam.getBuyLIne() && !prepareToBuy && countPapers == 0) {
+                    prepareToBuy = true;
+                    if (logPrint) printLn("Готовимся к покупке");
                 }
-            }
 
-
-            if (index > 3 && index < candleStream.getCandlesArrayList().size()-1 ) {
-                if (rsaIndicator < indicatorOne.getArrayListIndicator().get(index - 3)-strategyParam.getStopLoss() && countPapers > 0) { /// !!!
-                    prepareToSell = false;
-                    printLn("Stop Loss Detected ");
-                    transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));
-                  if (logPrint) printLn("Продали акции в количестве: " + paperCount + " по цене: " + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
+                if (prepareToBuy) {  // покупка акций
+                    if (rsaIndicator > saveRsaIndicator) { // saveRsaIndicator
+                        transactionArrayList.add(tradeAction.buy(paperCount, candleStream.getCandlesArrayList().get(index).getCloseCandle(), index)); // поменял свечу для получения цены
+                        prepareToBuy = false;
+                        if (logPrint)
+                            printLn("Купили акции по цене " + candleStream.getCandlesArrayList().get(index).getCloseCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
+                    }
                 }
-            }
 
 
-            if (rsaIndicator > strategyParam.getSellLine() && !prepareToSell && countPapers > 0) {
-                prepareToSell = true;
-               if (logPrint)printLn("Готовимся к продаже ");
-            }
+               if (index > 3 && index < candleStream.getCandlesArrayList().size() - 1) {
+                   if (rsaIndicator < indicatorOne.getArrayListIndicator().get(index - 3) - strategyParam.getStopLoss() && countPapers > 0) { /// !!!
+                       prepareToSell = false;
+                       printLn("Stop Loss Detected ");
+                       transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));
+                       if (logPrint)
+                           printLn("Продали акции в количестве: " + paperCount + " по цене: " + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
+                   }
+               }
 
-            if (prepareToSell) { // продажа при условии RSA> предыдущего RSA,
-                if (rsaIndicator < saveRsaIndicator && tradeAction.getBalance().getPapers() > 0) {  // saveRsaIndicator
-                    transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));
-                    prepareToSell = false;
-                  if (logPrint) printLn("Продали акции в колличестве: " + paperCount + " по цене:" + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
+
+                if (rsaIndicator > strategyParam.getSellLine() && !prepareToSell && countPapers > 0) {
+                    prepareToSell = true;
+                    if (logPrint) printLn("Готовимся к продаже ");
                 }
+
+                if (prepareToSell) { // продажа при условии RSA> предыдущего RSA,
+                    if (rsaIndicator < saveRsaIndicator && tradeAction.getBalance().getPapers() > 0) {  // saveRsaIndicator
+                        transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index + 1).getOpenCandle(), index));
+                        prepareToSell = false;
+                        if (logPrint)
+                            printLn("Продали акции в колличестве: " + paperCount + " по цене:" + candleStream.getCandlesArrayList().get(index + 1).getOpenCandle() + candleStream.getCandlesArrayList().get(index).getData().toString());
+                    }
+                }
+
+                index++;
+                saveRsaIndicator = rsaIndicator;
             }
 
-            index++;
-            saveRsaIndicator = rsaIndicator;
+
         }
 
     }

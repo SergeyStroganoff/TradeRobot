@@ -15,6 +15,6 @@ public abstract class StartStrategy {
 
     }
 
-    public abstract Report testStrategy(StrategyParam strategyParam, String name);
+    public abstract Report testStrategy(StrategyParam strategyParam, Strategies strategies);
 
 }

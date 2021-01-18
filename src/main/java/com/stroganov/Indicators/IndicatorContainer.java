@@ -20,21 +20,21 @@ public class IndicatorContainer {
             }
 
             case ("RSA"): {
-                for (int i = 5; i < 28; i++) {
+                for (int i = 3; i < 28; i++) {
                     bufIndicators[i] = new RSA_Indicator(candleStream, i);
                 }
                 break;
             }
 
             case ("SMMA"): {
-                for (int i = 5; i < 28; i++) {
+                for (int i = 3; i < 28; i++) {
                     bufIndicators[i] = new SMMA(candleStream, i);
                 }
                 break;
             }
 
             case ("SMA"): {
-                for (int i = 5; i < 32; i++) {
+                for (int i = 3; i < 32; i++) {
                     bufIndicators[i] = new SMA(candleStream, i);
                 }
                 break;
@@ -49,7 +49,7 @@ public class IndicatorContainer {
 
     public AbstractIndicator getIndicatorByPeriod(int period) {
         if (period < 0 || period > 32)
-            throw new IllegalArgumentException("Период индикатора указан в неверном диапазоне - должен быть от 5 до 28");
+            throw new IllegalArgumentException("Период индикатора указан в неверном диапазоне - должен быть от 3 до 28");
         return bufIndicators[period];
     }
 

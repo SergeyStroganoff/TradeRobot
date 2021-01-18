@@ -14,26 +14,27 @@ public class StartStrategyNow extends StartStrategy {
     }
 
     @Override
-    public Report testStrategy(StrategyParam strategyParam, String name) {
+    public Report testStrategy(StrategyParam strategyParam, Strategies strategies) {
 
         Balance balance = new Balance(startMoney);
         Report report = new Report(balance);
         TradeAction tradeAction = new TradeAction(balance);
         AbstractStrategy strategy = null;
+        System.out.println(strategies.name());
 
-        switch (name) {
-            case ("RSA_StrategyStopLoss"): {
+        switch (strategies.name()) {
+            case ("RSA_STRATEGY_STOP"): {
                 strategy = new RSA_StrategyStopLoss(candleStream, tradeAction, 400, strategyParam.getPeriodOne(), strategyParam.getPeriodTwo(), container);
                 break;
             }
 
-            case ("SMA_Strategy"): {
+            case ("SMA_STRATEGY"): {
                 strategy = new SMA_Strategy(candleStream, tradeAction, 400, strategyParam.getPeriodOne(),strategyParam.getPeriodTwo(), container);
                 break;
             }
 
-            case ("SMA_StrategyShort"): {
-                strategy = new SMA_StrategyShort(candleStream, tradeAction, 400, strategyParam.getPeriodOne(),strategyParam.getPeriodTwo(), container);
+            case ("SMA_STRATEGY_REVERSE" ): {
+                strategy = new SMA_StrategyReverse(candleStream, tradeAction, 400, strategyParam.getPeriodOne(),strategyParam.getPeriodTwo(), container);
                 break;
             }
 
@@ -49,7 +50,7 @@ public class StartStrategyNow extends StartStrategy {
             System.out.println("Отчет сформирован успешно");
         } else {
             System.out.println("С отчетом что то не так!!!");
-            throw new IllegalStateException("Ошибка подготовки отчета");
+            //throw new IllegalStateException("Ошибка подготовки отчета");
         }
         return report;
     }

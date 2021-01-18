@@ -5,6 +5,7 @@ import com.stroganov.Grafics.Report;
 import com.stroganov.Indicators.IndicatorContainer;
 import com.stroganov.Indicators.Indicators;
 import com.stroganov.Strategies.StartStrategyNow;
+import com.stroganov.Strategies.Strategies;
 import com.stroganov.Strategies.StrategyParam;
 
 import java.io.IOException;
@@ -14,9 +15,9 @@ public class MainSMA {
 
     public static void main(String[] args) {
 
-        boolean testPaparam = false;
+        boolean testPaparam = true;
 
-        String fileName = "Data/" + "SBER_180301_180901down.txt";  //SBER_all2020_1H.txt //SBER_201101_210106.txt// SBER-30M-2020.txt //Data/SBER_1H-2014-2020.txt // Data/SBER_201101_210106t.txt
+        String fileName = "Data/" + "SBER_all2020_1H.txt";  //"SBER_210101_1501.txt";//"SBER_180301_180901down.txt";  //SBER_all2020_1H.txt //SBER_201101_210106.txt// SBER-30M-2020.txt //Data/SBER_1H-2014-2020.txt // Data/SBER_201101_210106t.txt
         CandleStream candleStream = new CandleStream(fileName);
         IndicatorContainer containerSMA = new IndicatorContainer(candleStream, Indicators.SMA);
         System.out.println(candleStream.getCandlesArrayList().size());
@@ -24,19 +25,20 @@ public class MainSMA {
         StrategyParam strategyParam;
 
         StartStrategyNow startStrategy = new StartStrategyNow(candleStream, containerSMA, 100000);
+        Strategies strategies = Strategies.SMA_STRATEGY_REVERSE;
 
         ////
         long startTime = System.nanoTime();
 
         if (testPaparam) {
 
-            for (int periodOne = 9; periodOne < 12; periodOne++) {
-                for (int periodTwo = 5; periodTwo < 8; periodTwo++) {
-                    for (float buyLine = -0.9f; buyLine < 0.5f; buyLine += 0.1) {
-                        for (float sellLine = -1.5f; sellLine < 0.5f; sellLine += 0.1) {
-                            for (float stopLoss =  -0.1f; stopLoss < 0.0f; stopLoss += 0.1) {
+            for (int periodOne = 8; periodOne < 14; periodOne++) { //9-12
+                for (int periodTwo = 5; periodTwo < 6; periodTwo++) { //5-8
+                    for (float buyLine = -0.2f; buyLine < 0.2f; buyLine += 0.1) {
+                        for (float sellLine = -0.6f; sellLine < 0.2f; sellLine += 0.1) {
+                            for (float stopLoss =  -0.5f; stopLoss < 0.6f; stopLoss += 0.1) {
                                 strategyParam = new StrategyParam(periodOne, periodTwo, buyLine, sellLine, stopLoss);
-                                resultMapStrategy.put(startStrategy.testStrategy(strategyParam, "SMA_StrategyShort"), strategyParam);
+                                resultMapStrategy.put(startStrategy.testStrategy(strategyParam, strategies), strategyParam);
                             }
                         }
                     }
@@ -44,8 +46,8 @@ public class MainSMA {
             }
 
         } else {
-            strategyParam = new StrategyParam(9, 5, -0.1f, -0.45f, -1.3f);
-            resultMapStrategy.put(startStrategy.testStrategy(strategyParam, "SMA_StrategyShort"), strategyParam);
+            strategyParam = new StrategyParam(9, 5, -0.1f, -0.4f, 0.0f);
+            resultMapStrategy.put(startStrategy.testStrategy(strategyParam, strategies), strategyParam);
         }
 
         long finishTime = System.nanoTime();
@@ -78,6 +80,7 @@ public class MainSMA {
         Collection<Report> reportCollection = resultMapStrategy.keySet();
         ArrayList<Report> reportArrayList = new ArrayList<>(reportCollection);
         bestReport = Collections.max(reportArrayList, Report.compareReportByMaxBalance());
+       // bestReport = Collections.max(reportArrayList, Report.compareReportByGoodDeal());
 
         return bestReport;
     }

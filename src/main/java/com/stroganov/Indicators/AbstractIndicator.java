@@ -21,7 +21,7 @@ public abstract class AbstractIndicator {
         }
         this.candlesArrayList = candleStream.getCandlesArrayList();
         this.period = period;
-        calculateIndicator();
+        //calculateIndicator(); вернуть
     }
 
     public int getPeriod() {

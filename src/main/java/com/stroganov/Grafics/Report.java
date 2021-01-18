@@ -50,10 +50,6 @@ public class Report {
         return transactionArrayList;
     }
 
-    public void printLn(String string) {
-        System.out.println(string);
-    }
-
     public double getFinishBalance() {
         return finishBalance;
     }
@@ -61,6 +57,16 @@ public class Report {
     public double getProfitPercentage() {
         return profitPercentage;
     }
+
+    public int getCountGoodDeal() {
+        return countGoodDeal;
+    }
+
+
+    public void printLn(String string) {
+        System.out.println(string);
+    }
+
 
     public boolean prepareReport(@NotNull ArrayList<Transaction> transactionArrayList) {
         boolean allRight = true;
@@ -122,7 +128,7 @@ public class Report {
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(transaction.getTradeDirect()).append(";").append(transaction.getCountPapers()).
-                          append(";").append(transaction.getPrice()).append(";").append(transaction.getBalance().getAllBalance()).append("\n");
+                    append(";").append(transaction.getPrice()).append(";").append(transaction.getBalance().getAllBalance()).append("\n");
             fileWriter.write(stringBuilder.toString());
 
         }
@@ -135,6 +141,10 @@ public class Report {
 
     public static Comparator<Report> compareReportByProfitPercentage() {
         return (o1, o2) -> (int) (o1.getProfitPercentage() - o2.getProfitPercentage());
+    }
+
+    public static Comparator<Report> compareReportByGoodDeal() {
+        return (o1, o2) -> (int) (o1.getCountGoodDeal() - o2.getCountGoodDeal());
     }
 
 
