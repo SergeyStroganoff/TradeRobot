@@ -9,6 +9,7 @@ import com.stroganov.Strategies.Strategies;
 import com.stroganov.Strategies.StrategyParam;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class MainSMA {
@@ -17,10 +18,14 @@ public class MainSMA {
 
         boolean testPaparam = true;
 
-        String fileName = "Data/" + "SBER_all2020_1H.txt";  //"SBER_210101_1501.txt";//"SBER_180301_180901down.txt";  //SBER_all2020_1H.txt //SBER_201101_210106.txt// SBER-30M-2020.txt //Data/SBER_1H-2014-2020.txt // Data/SBER_201101_210106t.txt
-        CandleStream candleStream = new CandleStream(fileName);
+   //     String fileName = "Data/" + "SBER_210101_210201.txt";  //"SBER_210101_1501.txt";//"SBER_180301_180901down.txt";  //SBER_all2020_1H.txt //SBER_201101_210106.txt// SBER-30M-2020.txt //Data/SBER_1H-2014-2020.txt // Data/SBER_201101_210106t.txt
+   //     CandleStream candleStream = new CandleStream(fileName);
+
+        LocalDate dateFrom = LocalDate.of(2017,9,1);
+        LocalDate dateTo =  LocalDate.of(2018,8,27);
+        CandleStream candleStream = new CandleStream("SBER",60,dateFrom,dateTo);
         IndicatorContainer containerSMA = new IndicatorContainer(candleStream, Indicators.SMA);
-        System.out.println(candleStream.getCandlesArrayList().size());
+        System.out.println("Длина свечного стрима: " + candleStream.getCandlesArrayList().size());
         Map<Report, StrategyParam> resultMapStrategy = new HashMap<>();
         StrategyParam strategyParam;
 
@@ -32,11 +37,11 @@ public class MainSMA {
 
         if (testPaparam) {
 
-            for (int periodOne = 8; periodOne < 14; periodOne++) { //9-12
-                for (int periodTwo = 5; periodTwo < 6; periodTwo++) { //5-8
-                    for (float buyLine = -0.2f; buyLine < 0.2f; buyLine += 0.1) {
-                        for (float sellLine = -0.6f; sellLine < 0.2f; sellLine += 0.1) {
-                            for (float stopLoss =  -0.5f; stopLoss < 0.6f; stopLoss += 0.1) {
+            for (int periodOne = 8; periodOne < 12; periodOne++) { //9-12
+                for (int periodTwo = 5; periodTwo < 8; periodTwo++) { //5-8
+                    for (float buyLine = -0.4f; buyLine < 0.2f; buyLine += 0.1) {
+                        for (float sellLine = -0.5f; sellLine < 0.0f; sellLine += 0.1) {
+                            for (float stopLoss =  -0.0f; stopLoss < 0.5f; stopLoss += 0.02) {
                                 strategyParam = new StrategyParam(periodOne, periodTwo, buyLine, sellLine, stopLoss);
                                 resultMapStrategy.put(startStrategy.testStrategy(strategyParam, strategies), strategyParam);
                             }
@@ -46,14 +51,15 @@ public class MainSMA {
             }
 
         } else {
-            strategyParam = new StrategyParam(9, 5, -0.1f, -0.4f, 0.0f);
+          //  strategyParam = new StrategyParam(9, 5, -0.1f, -0.45f, 0.04f);
+            strategyParam = new StrategyParam(9, 5, -0.0f, 0.1f, -0.0f);
             resultMapStrategy.put(startStrategy.testStrategy(strategyParam, strategies), strategyParam);
         }
 
         long finishTime = System.nanoTime();
         long calcTime = finishTime - startTime;
-        System.out.println("ВРЕМЯ выполнения расчетов составило: " + (calcTime / 1000000));
 
+        System.out.println("ВРЕМЯ выполнения расчетов составило: " + (calcTime / 1000000));
         System.out.println("Количество перебранных вариантов стратегии: " + resultMapStrategy.size());
         System.out.println("Время расчета одной стратегии составило " + calcTime / resultMapStrategy.size() / 1000000);
 
@@ -71,7 +77,6 @@ public class MainSMA {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static Report getBestReport(Map<Report, StrategyParam> resultMapStrategy) {

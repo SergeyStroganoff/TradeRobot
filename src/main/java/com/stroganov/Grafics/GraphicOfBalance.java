@@ -20,7 +20,7 @@ public class GraphicOfBalance {
 
         XYSeries series = new XYSeries("Transactions");
 
-        for (int i = 0; i < arrayOfTransaction.size(); i+=2) {
+        for (int i = 0; i < arrayOfTransaction.size(); i++) {
             series.add(i, arrayOfTransaction.get(i).getBalance().getAllBalance());
         }
 

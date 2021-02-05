@@ -20,7 +20,6 @@ public class StartStrategyNow extends StartStrategy {
         Report report = new Report(balance);
         TradeAction tradeAction = new TradeAction(balance);
         AbstractStrategy strategy = null;
-        System.out.println(strategies.name());
 
         switch (strategies.name()) {
             case ("RSA_STRATEGY_STOP"): {

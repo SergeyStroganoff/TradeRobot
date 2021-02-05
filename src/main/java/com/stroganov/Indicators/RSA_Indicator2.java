@@ -24,7 +24,6 @@ public class RSA_Indicator2 extends AbstractIndicator {
 
         for (int s = 1; s < period; s++) {
             arrayListIndicator.add(0d);
-            System.out.println("какого хуя !!!");
         }
 
         for (int i = 1; i < period; i++) {

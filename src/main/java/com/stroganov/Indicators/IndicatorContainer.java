@@ -4,7 +4,7 @@ import com.stroganov.CandleStream;
 
 public class IndicatorContainer {
 
-    AbstractIndicator bufIndicators[] = new AbstractIndicator[32];
+    AbstractIndicator bufIndicators[] = new AbstractIndicator[90];
     CandleStream candleStream;
 
     public IndicatorContainer(CandleStream candleStream, Indicators indicators) {
@@ -13,7 +13,7 @@ public class IndicatorContainer {
         switch (indicators.name()) {
 
             case ("EMA"): {
-                for (int i = 1; i < 28; i++) {
+                for (int i = 1; i < 90; i++) {
                     bufIndicators[i] = new EMA(candleStream, i);
                 }
                 break;
@@ -27,14 +27,14 @@ public class IndicatorContainer {
             }
 
             case ("SMMA"): {
-                for (int i = 3; i < 28; i++) {
+                for (int i = 3; i < 90; i++) {
                     bufIndicators[i] = new SMMA(candleStream, i);
                 }
                 break;
             }
 
             case ("SMA"): {
-                for (int i = 3; i < 32; i++) {
+                for (int i = 3; i < 90; i++) {
                     bufIndicators[i] = new SMA(candleStream, i);
                 }
                 break;

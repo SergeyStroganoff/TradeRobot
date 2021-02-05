@@ -15,7 +15,7 @@ title __ROBOT's Class Diagram__\n
   
 
   namespace com.stroganov {
-    class com.stroganov.DateFromString {
+    class com.stroganov.DateTimeFromString {
     }
   }
   

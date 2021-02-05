@@ -21,7 +21,7 @@ public abstract class AbstractStrategy {
         this.container = container;
         this.indicatorOne = container.getIndicatorByPeriod(periodOne);
         this.indicatorTwo = container.getIndicatorByPeriod(periodTwo);
-        if (indicatorOne ==null) {
+        if (indicatorOne == null || indicatorTwo == null) {
             System.out.println("indicator NULL !!!");
         }
         this.paperCount = paperCount;

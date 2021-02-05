@@ -4,14 +4,16 @@ import java.util.Objects;
 
 public class StrategyParam {
 
-   private int periodOne;
-   private int periodTwo;
-   private float buyLIne;
-   private float sellLine;
+    private int periodOne;
+    private int periodTwo;
+    private float buyLIne;
+    private float sellLine;
+    private float buyLIneShort;
+    private float sellLineShort;
 
-   private float stopLoss;
+    private float stopLoss;
 
-    public StrategyParam(int periodOne,int periodTwo, float buyLIne, float sellLine, float stopLoss) {
+    public StrategyParam(int periodOne, int periodTwo, float buyLIne, float sellLine, float stopLoss) {
         this.periodOne = periodOne;
         this.periodTwo = periodTwo;
         this.buyLIne = buyLIne;
@@ -20,9 +22,33 @@ public class StrategyParam {
     }
 
 
+    public StrategyParam(int periodOne, int periodTwo, float buyLineLong, float sellLineLong, float buyLineShort, float sellLineShort, float stopLoss) {
+        new StrategyParam(periodOne, periodTwo, buyLineLong, sellLineLong, stopLoss);
+        this.buyLIneShort = buyLineShort;
+        this.sellLineShort = sellLineShort;
+    }
+
+
+    public float getBuyLIneShort() {
+        return buyLIneShort;
+    }
+
+    public void setBuyLIneShort(float buyLIneShort) {
+        this.buyLIneShort = buyLIneShort;
+    }
+
+    public float getSellLineShort() {
+        return sellLineShort;
+    }
+
+    public void setSellLineShort(float sellLineShort) {
+        this.sellLineShort = sellLineShort;
+    }
+
     public int getPeriodOne() {
         return periodOne;
     }
+
     public int getPeriodTwo() {
         return periodTwo;
     }
@@ -61,14 +87,13 @@ public class StrategyParam {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StrategyParam that = (StrategyParam) o;
-        return periodOne == that.periodOne && buyLIne == that.buyLIne && sellLine == that.sellLine && stopLoss == that.stopLoss;
+        return periodOne == that.periodOne && periodTwo == that.periodTwo && Float.compare(that.buyLIne, buyLIne) == 0 && Float.compare(that.sellLine, sellLine) == 0 && Float.compare(that.buyLIneShort, buyLIneShort) == 0 && Float.compare(that.sellLineShort, sellLineShort) == 0 && Float.compare(that.stopLoss, stopLoss) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(periodOne, buyLIne, sellLine, stopLoss);
+        return Objects.hash(periodOne, periodTwo, buyLIne, sellLine, buyLIneShort, sellLineShort, stopLoss);
     }
-
 
     @Override
     public String toString() {
@@ -77,6 +102,8 @@ public class StrategyParam {
                 ", periodTwo=" + periodTwo +
                 ", buyLIne=" + buyLIne +
                 ", sellLine=" + sellLine +
+                ", buyLIneShort=" + buyLIneShort +
+                ", sellLineShort=" + sellLineShort +
                 ", stopLoss=" + stopLoss +
                 '}';
     }

@@ -112,10 +112,6 @@ public class Report {
         printLn("Количество сделок в плюс: " + countGoodDeal);
         printLn("Количество сделок в минус: " + countBadDeal);
         printLn("Прибыльность стратегии в процентах: " + String.format("%.2f", getProfitPercentage()) + "%");
-        // printLn("Список всех транзакций: ");
-        //  for (Transaction transaction : transactionArrayList) {
-        //     printLn(transaction.toString());
-        // }
 
     }
 
@@ -130,9 +126,7 @@ public class Report {
             stringBuilder.append(transaction.getTradeDirect()).append(";").append(transaction.getCountPapers()).
                     append(";").append(transaction.getPrice()).append(";").append(transaction.getBalance().getAllBalance()).append("\n");
             fileWriter.write(stringBuilder.toString());
-
         }
-
     }
 
     public static Comparator<Report> compareReportByMaxBalance() {

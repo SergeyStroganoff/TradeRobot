@@ -14,9 +14,17 @@ public class SMATest {
     @Test
     public void calculateSMAOneCandle() {
 
-        double testDouble = testSMA.calculateSMAOneCandle(4,4);
+        double testDouble = testSMA.calculateSMAOneCandle(4,3);
         //double test = testSMA.calculateSMAOneCandle();
-        Assert.assertEquals(237.6625d, testDouble,0.1);
+        Assert.assertEquals(237.6625d, testDouble,0.01);
+
+    }
+
+    @Test
+    public void calculateIndicator() {
+
+        double testDouble=testSMA.getArrayListIndicator().get(3);
+        Assert.assertEquals(237.6625d, testDouble,0.01);
 
     }
 }
