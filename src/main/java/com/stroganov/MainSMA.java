@@ -40,7 +40,7 @@ public class MainSMA {
 
         if (testParam) {
 
-            for (int periodOne = 8; periodOne < 10; periodOne++) { //9-12
+            for (int periodOne = 8; periodOne < 45; periodOne++) { //9-12
                 for (int periodTwo = 5; periodTwo < 8; periodTwo++) { //5-8
                     for (float buyLine = -0.2f; buyLine < 0.4f; buyLine += 0.1) {
                         for (float sellLine = -0.2f; sellLine < 0.4f; sellLine += 0.1) {

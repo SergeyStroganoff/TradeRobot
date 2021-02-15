@@ -6,6 +6,8 @@ import com.stroganov.Indicators.AbstractIndicator;
 import com.stroganov.Indicators.IndicatorContainer;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+
 public class SMA_StrategyReverse extends AbstractStrategy {
 
     private static final Logger logger = Logger.getLogger(SMA_StrategyReverse.class);
@@ -16,7 +18,9 @@ public class SMA_StrategyReverse extends AbstractStrategy {
     }
 
     @Override
-    public void runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
+    public ArrayList<Transaction> runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
+
+        ArrayList<Transaction> transactionArrayList = new ArrayList<>();
 
         //  SMA_Change smaChangeIndicators = new SMA_Change(candleStream,45);
 
@@ -108,6 +112,8 @@ public class SMA_StrategyReverse extends AbstractStrategy {
             index++;
             saveIndicator = currentIndicatorTwo;  // currentIndicatorTwo; // varianceIndicator;
         }
+
+        return transactionArrayList;
 
     }
 }

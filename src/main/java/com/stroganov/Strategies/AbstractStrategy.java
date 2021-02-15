@@ -17,7 +17,7 @@ public abstract class AbstractStrategy {
     CandleStream candleStream;
     TradeAction tradeAction;
     int paperCount;
-    ArrayList<Transaction> transactionArrayList = new ArrayList<>();
+   // ArrayList<Transaction> transactionArrayList = new ArrayList<>();
     IndicatorContainer container;
 
     public AbstractStrategy(CandleStream candleStream, TradeAction tradeAction, int paperCount,  IndicatorContainer container) {
@@ -31,16 +31,16 @@ public abstract class AbstractStrategy {
         System.out.println(string);
     }
 
-    public ArrayList<Transaction> getTransactionArray() throws IllegalArgumentException {
-        if (transactionArrayList.isEmpty()) {
-            logger.error("Запрошенный список транзакций - пуст");
-            throw new IllegalArgumentException("Список транзакций пуст");
-        }
-        return transactionArrayList;
-    }
+  //  public ArrayList<Transaction> getTransactionArray() throws IllegalArgumentException {
+  //      if (transactionArrayList.isEmpty()) {
+  //          logger.error("Запрошенный список транзакций - пуст");
+  //          throw new IllegalArgumentException("Список транзакций пуст");
+  //      }
+  //      return transactionArrayList;
+  //  }
 
 
-    public Report testStrategyGetReport(StrategyParam strategyParam,float startMoney) { // Может разбить на два метода фабричный  и метод запуска ?
+    public Report testStrategyGetReport(StrategyParam strategyParam,float startMoney) { // Может send container ?
 
         AbstractIndicator indicatorOne = container.getIndicatorByPeriod(strategyParam.getPeriodOne());
         AbstractIndicator indicatorTwo =  container.getIndicatorByPeriod(strategyParam.getPeriodTwo());
@@ -52,8 +52,8 @@ public abstract class AbstractStrategy {
         }
 
 
-        runStrategy(strategyParam, indicatorOne, indicatorTwo);
-        if (report.prepareReport(getTransactionArray())) {
+        ArrayList<Transaction> transactionArrayList = runStrategy(strategyParam,indicatorOne,indicatorTwo);
+        if (report.prepareReport(transactionArrayList)) {
             logger.debug("Отчет сформирован успешно");
         } else {
             logger.error("Отчет с параметрами " + strategyParam.toString() + " не сформировался т.к. список транзакций пуст");
@@ -64,6 +64,6 @@ public abstract class AbstractStrategy {
 
 
 
-    public abstract void  runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo);
+    public abstract ArrayList<Transaction>  runStrategy(StrategyParam strategyParam, AbstractIndicator abstractIndicatorOne, AbstractIndicator abstractIndicatorTwo );
 
 }

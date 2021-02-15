@@ -5,6 +5,8 @@ import com.stroganov.CandleStream;
 import com.stroganov.Indicators.AbstractIndicator;
 import com.stroganov.Indicators.IndicatorContainer;
 
+import java.util.ArrayList;
+
 public class RSA_StrategyStopLoss extends AbstractStrategy {
 
     public RSA_StrategyStopLoss(CandleStream candleStream, TradeAction tradeAction, int paperCount, IndicatorContainer container) {
@@ -12,7 +14,9 @@ public class RSA_StrategyStopLoss extends AbstractStrategy {
     }
 
     @Override
-    public void runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
+    public  ArrayList<Transaction> runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
+
+        ArrayList<Transaction> transactionArrayList = new ArrayList<>();
 
         boolean prepareToBuy = false;
         boolean prepareToSell = false;
@@ -80,6 +84,8 @@ public class RSA_StrategyStopLoss extends AbstractStrategy {
 
 
         }
+
+        return transactionArrayList;
 
     }
 }

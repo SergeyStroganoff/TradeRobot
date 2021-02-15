@@ -12,12 +12,22 @@ public class TradeAction {
     private final boolean logPrint=false;
 
     public TradeAction(Balance balance) {
+
         this.balance = balance;
     }
 
     public Balance getBalance() {
         return balance;
     }
+
+    //
+
+    public void setBalance(Balance balance) {
+        this.balance = balance;
+    }
+
+
+    ///
 
     public Transaction sell(int papersCount, float price, int candleIndex) {
 

@@ -6,36 +6,37 @@ import com.stroganov.Indicators.AbstractIndicator;
 import com.stroganov.Indicators.IndicatorContainer;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+
 public class SMA_Strategy extends AbstractStrategy {
 
     private static final Logger logger = Logger.getLogger(SMA_Strategy.class);
 
 
     public SMA_Strategy(CandleStream candleStream, TradeAction tradeAction, int paperCount, IndicatorContainer container) {
-        super(candleStream, tradeAction, paperCount,  container);
+        super(candleStream, tradeAction, paperCount, container);
     }
 
     @Override
-    public void runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
+    public ArrayList<Transaction> runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
+
+        ArrayList<Transaction> transactionArrayList = new ArrayList<>();
 
         int position = 0;
         boolean logPrint = false;
         int index = 0;
-        double saveIndicator = 0f;
         float savePriseBuy = 0f;
         double varianceIndicator = 0;
         Candle currentCandle;
-        int candle = 0;
 
         for (double currentIndicator : indicatorOne.getArrayListIndicator()) {
 
-            //int countPapers = tradeAction.getBalance().getPapers();
+            int countPapers = tradeAction.getBalance().getPapers();
 
             currentCandle = candleStream.getCandlesArrayList().get(index);
             double currentIndicatorTwo = indicatorTwo.getArrayListIndicator().get(index);
             double currentIndicatorTwoSave; // удалить
             varianceIndicator = currentIndicatorTwo - currentIndicator;
-            candle = 0;
 
 
             if (logPrint) {
@@ -49,7 +50,6 @@ public class SMA_Strategy extends AbstractStrategy {
                 if (varianceIndicator > strategyParam.getBuyLIne() && position == 0) {
                     transactionArrayList.add(tradeAction.buy(paperCount, currentCandle.getCloseCandle(), index));
                     position = 1;
-                    candle = 1;
                     savePriseBuy = currentCandle.getCloseCandle();
 
                     if (logPrint) {
@@ -98,8 +98,8 @@ public class SMA_Strategy extends AbstractStrategy {
             }
 
             index++;
-            saveIndicator = varianceIndicator;  // currentIndicatorTwo; // varianceIndicator;
-        }
 
+        }
+return transactionArrayList;
     }
 }

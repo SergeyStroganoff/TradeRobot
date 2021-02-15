@@ -5,6 +5,8 @@ import com.stroganov.CandleStream;
 import com.stroganov.Indicators.AbstractIndicator;
 import com.stroganov.Indicators.IndicatorContainer;
 
+import java.util.ArrayList;
+
 public class SMA_StrategyReverseDifferent extends AbstractStrategy {
 
 
@@ -13,8 +15,8 @@ public class SMA_StrategyReverseDifferent extends AbstractStrategy {
     }
 
     @Override
-    public void runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
-
+    public ArrayList<Transaction> runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
+        ArrayList<Transaction> transactionArrayList = new ArrayList<>();
 
         // int doublePaperCount = paperCount * 2;
         int position = 0;
@@ -103,6 +105,6 @@ public class SMA_StrategyReverseDifferent extends AbstractStrategy {
             saveIndicator = currentIndicatorTwo;  // currentIndicatorTwo; // varianceIndicator;
         }
 
-
+return transactionArrayList;
     }
 }
