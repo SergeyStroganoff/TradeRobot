@@ -2,16 +2,17 @@ package com.stroganov.Strategies;
 
 import com.stroganov.Candle;
 import com.stroganov.CandleStream;
+import com.stroganov.Indicators.AbstractIndicator;
 import com.stroganov.Indicators.IndicatorContainer;
 
 public class RSA_StrategyStopLoss extends AbstractStrategy {
 
-    public RSA_StrategyStopLoss(CandleStream candleStream, TradeAction tradeAction, int paperCount, int periodOne, int periodTwo, IndicatorContainer container) {
-        super(candleStream, tradeAction, paperCount, periodOne, periodTwo, container);
+    public RSA_StrategyStopLoss(CandleStream candleStream, TradeAction tradeAction, int paperCount, IndicatorContainer container) {
+        super(candleStream, tradeAction, paperCount,  container);
     }
 
     @Override
-    public void runStrategy(StrategyParam strategyParam) {
+    public void runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
 
         boolean prepareToBuy = false;
         boolean prepareToSell = false;

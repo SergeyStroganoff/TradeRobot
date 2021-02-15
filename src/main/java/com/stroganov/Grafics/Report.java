@@ -33,7 +33,6 @@ public class Report {
     public Report(Balance startBalance) {
         this.balance = startBalance;
         this.startMoney = balance.getFreeMoney();
-
     }
 
     public int getCountTransactions() {
@@ -90,8 +89,8 @@ public class Report {
         if (transactionArrayList.isEmpty()) {
             return false;
         }
-        float lastTransactionPrice = transactionArrayList.get(transactionArrayList.size() - 1).getPrice();
-        finishBalance = balance.getAllBalance(lastTransactionPrice);
+
+        finishBalance = transactionArrayList.get(transactionArrayList.size() - 1).getBalance().getAllBalance();
         countTransactions = transactionArrayList.size();
 
         for (int i = 0; i < transactionArrayList.size() - 1; i += 2) {                         // при односторонних сделках i=+2;
@@ -182,7 +181,6 @@ public class Report {
     public int hashCode() {
         return Objects.hash(startMoney, finishBalance, balance, transactionArrayList, countTransactions, changesAllBalance);
     }
-
 
 
 }
