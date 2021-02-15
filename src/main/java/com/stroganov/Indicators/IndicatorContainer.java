@@ -1,8 +1,12 @@
 package com.stroganov.Indicators;
 
 import com.stroganov.CandleStream;
+import com.stroganov.MainSMA;
+import org.apache.log4j.Logger;
 
 public class IndicatorContainer {
+    private static final Logger logger = Logger.getLogger(IndicatorContainer.class);
+
 
     AbstractIndicator bufIndicators[] = new AbstractIndicator[90];
     CandleStream candleStream;
@@ -41,6 +45,7 @@ public class IndicatorContainer {
             }
 
             default: {
+                logger.error("индикатор "+ indicators.name() +" указан  неверно");
                 throw new IllegalArgumentException("Индикатор указан неверно");
             }
 
@@ -48,8 +53,9 @@ public class IndicatorContainer {
     }
 
     public AbstractIndicator getIndicatorByPeriod(int period) {
-        if (period < 0 || period > 32)
-            throw new IllegalArgumentException("Период индикатора указан в неверном диапазоне - должен быть от 3 до 28");
+        if (period < 0 || period > 90)
+        { logger.error("Период индикатора указан в неверном диапазоне");
+            throw new IllegalArgumentException("Период индикатора указан в неверном диапазоне ");}
         return bufIndicators[period];
     }
 

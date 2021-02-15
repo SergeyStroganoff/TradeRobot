@@ -3,10 +3,15 @@ package com.stroganov.Strategies;
 import com.stroganov.CandleStream;
 import com.stroganov.Indicators.AbstractIndicator;
 import com.stroganov.Indicators.IndicatorContainer;
+import com.stroganov.MainSMA;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractStrategy {
+
+    private static final Logger logger = Logger.getLogger(AbstractStrategy.class);
 
     CandleStream candleStream;
     AbstractIndicator indicatorOne;
@@ -22,7 +27,7 @@ public abstract class AbstractStrategy {
         this.indicatorOne = container.getIndicatorByPeriod(periodOne);
         this.indicatorTwo = container.getIndicatorByPeriod(periodTwo);
         if (indicatorOne == null || indicatorTwo == null) {
-            System.out.println("indicator NULL !!!");
+           logger.info(" Сформирован пустой (NULL) индикатор " + periodOne + " " + periodTwo);
         }
         this.paperCount = paperCount;
         this.tradeAction = tradeAction;
@@ -31,8 +36,9 @@ public abstract class AbstractStrategy {
         System.out.println(string);
     }
 
-    public ArrayList<Transaction> getTransactionArray() {
+    public ArrayList<Transaction> getTransactionArray() throws IllegalArgumentException {
         if (transactionArrayList.isEmpty()) {
+            logger.error("Запрошенный список транзакций - пуст");
             throw new IllegalArgumentException("Список транзакций пуст");
         }
         return transactionArrayList;

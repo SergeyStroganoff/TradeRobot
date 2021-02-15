@@ -23,7 +23,11 @@ public class StrategyParam {
 
 
     public StrategyParam(int periodOne, int periodTwo, float buyLineLong, float sellLineLong, float buyLineShort, float sellLineShort, float stopLoss) {
-        new StrategyParam(periodOne, periodTwo, buyLineLong, sellLineLong, stopLoss);
+        this.periodOne = periodOne;
+        this.periodTwo = periodTwo;
+        this.buyLIne = buyLineLong;
+        this.sellLine = sellLineLong;
+        this.stopLoss = stopLoss;
         this.buyLIneShort = buyLineShort;
         this.sellLineShort = sellLineShort;
     }

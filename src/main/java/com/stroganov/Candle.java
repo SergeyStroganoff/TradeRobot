@@ -13,7 +13,7 @@ public class Candle {
     private final float highCandle;
     private final float lowCandle;
     private final float closeCandle;
-    private final float Volume;
+    private final float volume;
     private  float indicator=0f;  /// времянка
 
     public Candle(String ticker, int period, LocalDate data, LocalTime time, float openCandle, float highCandle, float lowCandle, float closeCandle, float volume) {
@@ -25,7 +25,7 @@ public class Candle {
         this.highCandle = highCandle;
         this.lowCandle = lowCandle;
         this.closeCandle = closeCandle;
-        Volume = volume;
+        this.volume = volume;
     }
 
     public void setIndicator(float indicator) {  /// времянка
@@ -69,7 +69,7 @@ public class Candle {
     }
 
     public float getVolume() {
-        return Volume;
+        return volume;
     }
 
 

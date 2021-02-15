@@ -44,7 +44,7 @@ title __STRATEGIES's Class Diagram__\n
           + RSA_Strategy()
           + getTransactionArrayList()
           + printLn()
-          + startStrategy()
+          + testStrategyAbstract()
       }
     }
   }

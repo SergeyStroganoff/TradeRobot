@@ -1,10 +1,15 @@
 package com.stroganov.Strategies;
 
+import com.stroganov.MainSMA;
+import org.apache.log4j.Logger;
+
 public class TradeAction {
 
+    private static final Logger logger = Logger.getLogger(TradeAction.class);
+
     Balance balance;
-    private  Double  brokerTax = 0.00035;
-    private boolean logPrint=false;
+    private final   float  brokerTax = 0.00035f;
+    private final boolean logPrint=false;
 
     public TradeAction(Balance balance) {
         this.balance = balance;
@@ -14,32 +19,32 @@ public class TradeAction {
         return balance;
     }
 
-    public Transaction sell(int papersCount, double price, int candleIndex) {
+    public Transaction sell(int papersCount, float price, int candleIndex) {
 
-        double payment = papersCount * price;
-        double brokerPayment = brokerTax*payment;
+        float payment = papersCount * price;
+        float brokerPayment = brokerTax*payment;
 
         balance.setPapers(balance.getPapers() - papersCount);
         balance.setFreeMoney(balance.getFreeMoney() + payment - brokerPayment);
         balance.setAllBalance(balance.getFreeMoney() + price * balance.getPapers());
 
-      if (logPrint)System.out.println("Продажа акций по цене " + price + ". Общий баланс составил: " + balance.getAllBalance());
+      if (logPrint)logger.info("Продажа акций по цене " + price + ". Общий баланс составил: " + balance.getAllBalance());
 
-        return new Transaction("Sell", candleIndex, balance, price, papersCount); // (String tradeDirect, int candleIndex, Balance balance, Double price, Double countPapers) {
+        return new Transaction("Sell", candleIndex, balance, price, papersCount);
     }
-    public Transaction buy(int papersCount, double price, int candleIndex) {
+    public Transaction buy(int papersCount, float price, int candleIndex) {
 
-        double payment = papersCount * price;
-        double brokerPayment = brokerTax*payment;
-       // if (logPrint) System.out.println("Оплата брокеру составила: " + brokerPayment);
+        float payment = papersCount * price;
+        float brokerPayment = brokerTax*payment;
+        if (logPrint) logger.info("Оплата брокеру составила: " + brokerPayment);
 
         balance.setPapers(balance.getPapers() + papersCount);
-        balance.setFreeMoney(balance.getFreeMoney() - payment - brokerPayment);
+        balance.setFreeMoney( (balance.getFreeMoney() - payment - brokerPayment));
         balance.setAllBalance(balance.getFreeMoney() + price * balance.getPapers());
 
-        if (logPrint) System.out.println("Покупка акций по цене " + price + ". Общий баланс составил: " + balance.getAllBalance());
+        if (logPrint) logger.info("Покупка акций по цене " + price + ". Общий баланс составил: " + balance.getAllBalance());
 
-        return new Transaction("Buy", candleIndex, balance, price, papersCount); // (String tradeDirect, int candleIndex, Balance balance, Double price, Double countPapers) {
+        return new Transaction("Buy", candleIndex, balance, price, papersCount);
     }
 
 

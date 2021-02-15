@@ -7,11 +7,11 @@ public class Transaction {
     private final String tradeDirect;
     private final int candleIndex;
     private final Balance balance;
-    private final Double price;
+    private final float price;
     private final int countPapers;
 
 
-    public Transaction(String tradeDirect, int candleIndex, Balance balance, Double price, int countPapers) {
+    public Transaction(String tradeDirect, int candleIndex, Balance balance, float price, int countPapers) {
         this.tradeDirect = tradeDirect;
         this.candleIndex = candleIndex;
         this.price = price;
@@ -34,7 +34,7 @@ public class Transaction {
         return balance;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 

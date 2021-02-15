@@ -2,6 +2,7 @@ package com.stroganov.Indicators;
 
 import com.stroganov.Candle;
 import com.stroganov.CandleStream;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractIndicator {
 
+    private static final Logger logger = Logger.getLogger(AbstractIndicator.class);
 
     ArrayList<Candle> candlesArrayList;
     ArrayList<Double> arrayListIndicator = new ArrayList<>();
@@ -17,6 +19,7 @@ public abstract class AbstractIndicator {
 
     public AbstractIndicator(CandleStream candleStream, int period) {
         if (period < 1) {
+            logger.error("Период индикатора меньше 1");
             throw new IllegalArgumentException("Период индикатора меньше 1 ");
         }
         this.candlesArrayList = candleStream.getCandlesArrayList();
@@ -38,10 +41,13 @@ public abstract class AbstractIndicator {
     public void saveArrayIndicatorFile(String fileName) {
 
         if (fileName.isEmpty() & fileName == null) {
+            logger.error("Имя файла для сохранения массива индикатора пусто");
             throw new IllegalArgumentException("Имя файла для сохранения массива индикатора пусто");
         }
 
-        if (getArrayListIndicator().isEmpty()) { throw new ArrayStoreException("Ошибка сохранения массива индекса "+ this.getClass() + " Массив пустой");
+        if (getArrayListIndicator().isEmpty()) {
+            logger.error("Ошибка сохранения массива индекса " + this.getClass() + " Массив пустой");
+            throw new ArrayStoreException("Ошибка сохранения массива индекса " + this.getClass() + " Массив пустой");
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {

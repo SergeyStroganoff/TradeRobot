@@ -1,5 +1,7 @@
 package com.stroganov;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.util.Properties;
 
 public class CandleStream {
 
+    private static final Logger logger = Logger.getLogger(CandleStream.class);
+
 
     private final ArrayList<Candle> candlesArrayList = new ArrayList<>();
 
@@ -21,7 +25,7 @@ public class CandleStream {
 
         try (BufferedReader fileReader = new BufferedReader(new FileReader(fileName))) {
             String stringFromFile = fileReader.readLine();
-            System.out.println(stringFromFile + " - Header of file");
+            logger.info(" Read Header of file" + stringFromFile);
             while ((stringFromFile = fileReader.readLine()) != null) {
                 String[] buf = stringFromFile.split(",");
 
@@ -35,7 +39,7 @@ public class CandleStream {
                         Float.parseFloat(buf[8])));
 
                 if (candlesArrayList.isEmpty()) {
-                    System.out.println("Error,Список свечей пуст");
+                    logger.info(" Readied CandleStream is Empty ! - Error,Список свечей пуст");
                 }
             }
         } catch (
@@ -50,26 +54,24 @@ public class CandleStream {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
 
         } catch (InstantiationException e) {
-            e.printStackTrace();
-            System.out.println("Error, Ошибка инициализации");
+            logger.error("Ошибка инициализации driver" + e.toString());
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            logger.error("Ошибка invocation driver" + e.toString());
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
 
         try (Connection conn = getConnection();) {
 
-            System.out.println("Connection to Store DB succesfull!");
+            logger.info("Connection to Store DB successfully!");
             Statement statement = conn.createStatement();
             getCandleArrayFromBase(ticker, period, dateFrom, dateTo, statement);
         } catch (SQLException | IOException ex) {
-            System.out.println("Connection failed...");
-            System.out.println(ex);
+            logger.error("Connection failed..." + ex.toString());
         }
     }
 
