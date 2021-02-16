@@ -10,13 +10,15 @@ import java.util.ArrayList;
 public class SMA_StrategyReverseDifferent extends AbstractStrategy {
 
 
-    public SMA_StrategyReverseDifferent(CandleStream candleStream, TradeAction tradeAction, int paperCount, IndicatorContainer container) {
-        super(candleStream, tradeAction, paperCount,  container);
+    public SMA_StrategyReverseDifferent(CandleStream candleStream, int paperCount, IndicatorContainer container) {
+        super(candleStream, paperCount, container);
     }
 
     @Override
     public ArrayList<Transaction> runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
         ArrayList<Transaction> transactionArrayList = new ArrayList<>();
+
+        TradeAction tradeAction = new TradeAction(new Balance(100000));
 
         // int doublePaperCount = paperCount * 2;
         int position = 0;
@@ -61,15 +63,15 @@ public class SMA_StrategyReverseDifferent extends AbstractStrategy {
 
                 // стоп лосс тест
 
-                  if (varianceIndicator>saveIndicator+strategyParam.getStopLoss()  && position > 0) {
-                      if (currentIndicatorTwo < saveIndicator + strategyParam.getStopLoss() && tradeAction.getBalance().getPapers() > 0) {
-                          transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index).getCloseCandle(), index));
-                           position = 0;
-                          if (logPrint) {
-                              printLn("Продали акции по стоплоссу в количестве: " + paperCount + " по цене:" + candleStream.getCandlesArrayList().get(index).getCloseCandle() + "   " + candleStream.getCandlesArrayList().get(index).getData().toString());
-                          }
-                      }
-                  }
+                if (varianceIndicator > saveIndicator + strategyParam.getStopLoss() && position > 0) {
+                    if (currentIndicatorTwo < saveIndicator + strategyParam.getStopLoss() && tradeAction.getBalance().getPapers() > 0) {
+                        transactionArrayList.add(tradeAction.sell(paperCount, candleStream.getCandlesArrayList().get(index).getCloseCandle(), index));
+                        position = 0;
+                        if (logPrint) {
+                            printLn("Продали акции по стоплоссу в количестве: " + paperCount + " по цене:" + candleStream.getCandlesArrayList().get(index).getCloseCandle() + "   " + candleStream.getCandlesArrayList().get(index).getData().toString());
+                        }
+                    }
+                }
 
 
                 if (varianceIndicator < strategyParam.getSellLine() && position > 0) {
@@ -105,6 +107,6 @@ public class SMA_StrategyReverseDifferent extends AbstractStrategy {
             saveIndicator = currentIndicatorTwo;  // currentIndicatorTwo; // varianceIndicator;
         }
 
-return transactionArrayList;
+        return transactionArrayList;
     }
 }

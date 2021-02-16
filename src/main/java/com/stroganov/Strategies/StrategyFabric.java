@@ -29,26 +29,26 @@ public class StrategyFabric {
 
         AbstractStrategy strategy = null;
         Balance balance = new Balance(startMoney);
-        TradeAction tradeAction = new TradeAction(balance);
+
 
         switch (strategies.name()) {
             case ("RSA_STRATEGY_STOP"):
-                strategy = new RSA_StrategyStopLoss(candleStream, tradeAction, 400,  container);
+                strategy = new RSA_StrategyStopLoss(candleStream, 400,  container);
                 break;
 
 
             case ("SMA_STRATEGY"):
-                strategy = new SMA_Strategy(candleStream, tradeAction, 400,  container);
+                strategy = new SMA_Strategy(candleStream, 400,  container);
                 break;
 
 
             case ("SMA_STRATEGY_REVERSE"):
-                strategy = new SMA_StrategyReverse(candleStream, tradeAction, 400, container);
+                strategy = new SMA_StrategyReverse(candleStream,  400, container);
                 break;
 
 
             case ("SMA_STRATEGY_REVERSE_DIFFERENT"):
-                strategy = new SMA_StrategyReverseDifferent(candleStream, tradeAction, 400, container);
+                strategy = new SMA_StrategyReverseDifferent(candleStream, 400, container);
                 break;
 
             default:

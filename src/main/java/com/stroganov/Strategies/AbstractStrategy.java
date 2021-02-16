@@ -15,16 +15,16 @@ public abstract class AbstractStrategy {
     private static final Logger logger = Logger.getLogger(AbstractStrategy.class);
 
     CandleStream candleStream;
-    TradeAction tradeAction;
+   // TradeAction tradeAction;
     int paperCount;
    // ArrayList<Transaction> transactionArrayList = new ArrayList<>();
     IndicatorContainer container;
 
-    public AbstractStrategy(CandleStream candleStream, TradeAction tradeAction, int paperCount,  IndicatorContainer container) {
+    public AbstractStrategy(CandleStream candleStream, int paperCount,  IndicatorContainer container) {
         this.candleStream = candleStream;
         this.container = container;
         this.paperCount = paperCount;
-        this.tradeAction = tradeAction;
+      //  this.tradeAction = tradeAction;
     }
     public void printLn(String string) {
 

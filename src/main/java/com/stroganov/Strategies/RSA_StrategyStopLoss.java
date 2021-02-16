@@ -9,13 +9,14 @@ import java.util.ArrayList;
 
 public class RSA_StrategyStopLoss extends AbstractStrategy {
 
-    public RSA_StrategyStopLoss(CandleStream candleStream, TradeAction tradeAction, int paperCount, IndicatorContainer container) {
-        super(candleStream, tradeAction, paperCount,  container);
+    public RSA_StrategyStopLoss(CandleStream candleStream, int paperCount, IndicatorContainer container) {
+        super(candleStream, paperCount,  container);
     }
 
     @Override
     public  ArrayList<Transaction> runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
 
+        TradeAction tradeAction = new TradeAction(new Balance(100000)); //TODO
         ArrayList<Transaction> transactionArrayList = new ArrayList<>();
 
         boolean prepareToBuy = false;
@@ -81,10 +82,7 @@ public class RSA_StrategyStopLoss extends AbstractStrategy {
                 index++;
                 saveRsaIndicator = rsaIndicator;
             }
-
-
         }
-
         return transactionArrayList;
 
     }

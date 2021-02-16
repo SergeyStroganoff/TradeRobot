@@ -13,12 +13,14 @@ public class SMA_StrategyReverse extends AbstractStrategy {
     private static final Logger logger = Logger.getLogger(SMA_StrategyReverse.class);
 
 
-    public SMA_StrategyReverse(CandleStream candleStream, TradeAction tradeAction, int paperCount, IndicatorContainer container) {
-        super(candleStream, tradeAction, paperCount, container);
+    public SMA_StrategyReverse(CandleStream candleStream, int paperCount, IndicatorContainer container) {
+        super(candleStream, paperCount, container);
     }
 
     @Override
     public ArrayList<Transaction> runStrategy(StrategyParam strategyParam, AbstractIndicator indicatorOne, AbstractIndicator indicatorTwo) {
+
+        TradeAction tradeAction = new TradeAction(new Balance(100000));
 
         ArrayList<Transaction> transactionArrayList = new ArrayList<>();
 

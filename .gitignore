@@ -1,5 +1,11 @@
 .idea
 .SQL
+/SQL
+.lib
+.out
+.Data
+.target
+/target
 *.class
 *.info
 *.jar
@@ -7,4 +13,10 @@
 *.log
 *.patch
 *.log1
+*.docx
+*.csv
+*.log
+*.xls
+*.xlsx
+
 
