@@ -9,17 +9,6 @@ public class StrategyFabric {
 
     private static final Logger logger = Logger.getLogger(StrategyFabric.class);
 
-    private IndicatorContainer container;
-    CandleStream candleStream;
-    float startMoney;
-
-    public StrategyFabric(CandleStream candleStream, IndicatorContainer container, float startMoney) {
-
-        this.candleStream = candleStream;
-        this.startMoney = startMoney;
-        this.container = container;
-    }
-
     public StrategyFabric(){
 
     }
@@ -28,27 +17,27 @@ public class StrategyFabric {
     public AbstractStrategy createStrategy(CandleStream candleStream, IndicatorContainer container, Strategies strategies, float startMoney){
 
         AbstractStrategy strategy = null;
-        Balance balance = new Balance(startMoney);
+       // Balance balance = new Balance(startMoney);
 
 
         switch (strategies.name()) {
             case ("RSA_STRATEGY_STOP"):
-                strategy = new RSA_StrategyStopLoss(candleStream, 400,  container);
+                strategy = new RSA_StrategyStopLoss(candleStream, 400,  container, startMoney);
                 break;
 
 
             case ("SMA_STRATEGY"):
-                strategy = new SMA_Strategy(candleStream, 400,  container);
+                strategy = new SMA_Strategy(candleStream, 400,  container,startMoney);
                 break;
 
 
             case ("SMA_STRATEGY_REVERSE"):
-                strategy = new SMA_StrategyReverse(candleStream,  400, container);
+                strategy = new SMA_StrategyReverse(candleStream,  400, container,startMoney);
                 break;
 
 
             case ("SMA_STRATEGY_REVERSE_DIFFERENT"):
-                strategy = new SMA_StrategyReverseDifferent(candleStream, 400, container);
+                strategy = new SMA_StrategyReverseDifferent(candleStream, 400, container,startMoney);
                 break;
 
             default:

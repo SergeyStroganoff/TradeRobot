@@ -8,6 +8,7 @@ import com.stroganov.Strategies.AbstractStrategy;
 import com.stroganov.Strategies.Strategies;
 import com.stroganov.Strategies.StrategyFabric;
 import com.stroganov.Strategies.StrategyParam;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -19,19 +20,22 @@ public class MainSMA {
 
     public static void main(String[] args) {
 
-        logger.info("Модуль MainSMA Запущен успешно");
-        boolean testParam = true;
+        logger.setLevel(Level.INFO);
 
-        LocalDate dateFrom = LocalDate.of(2014, 1, 1);
-        LocalDate dateTo = LocalDate.of(2021, 2, 11);
-        CandleStream candleStream = new CandleStream("SBER", 1440, dateFrom, dateTo);
+        logger.info("Модуль MainSMA Запущен успешно");
+        boolean testParam = false;
+
+        LocalDate dateFrom = LocalDate.of(2021, 1, 1);
+        LocalDate dateTo = LocalDate.of(2021, 2, 22);
+        CandleStream candleStream = new CandleStream("SBER", 60, dateFrom, dateTo);
         IndicatorContainer indicatorContainer = new IndicatorContainer(candleStream, Indicators.SMA);
 
         logger.info("Успешно загружена и используется Длина свечного стрима: " + candleStream.getCandlesArrayList().size());
 
         Map<Report, StrategyParam> resultMapStrategy = new HashMap<>();
         StrategyParam strategyParam;
-        Strategies strategy = Strategies.SMA_STRATEGY;
+       // Strategies strategy = Strategies.SMA_STRATEGY_REVERSE;
+        Strategies strategy = Strategies.SMA_STRATEGY_REVERSE;
         AbstractStrategy workStrategy = new StrategyFabric().createStrategy(candleStream, indicatorContainer, strategy, 100000);
 
 
@@ -40,24 +44,26 @@ public class MainSMA {
 
         if (testParam) {
 
-            for (int periodOne = 8; periodOne < 90; periodOne++) { //9-12
-                for (int periodTwo = 5; periodTwo < 8; periodTwo++) { //5-8
-                    for (float buyLine = -0.2f; buyLine < 0.4f; buyLine += 0.1) {
-                        for (float sellLine = -0.2f; sellLine < 0.4f; sellLine += 0.1) {
-                            for (float stopLoss = -0.0f; stopLoss < 0.5f; stopLoss += 0.1) {
-                                strategyParam = new StrategyParam(periodOne, periodTwo, buyLine, sellLine, stopLoss);      // new object ore reset the field values !!!
-                                resultMapStrategy.put(workStrategy.testStrategyGetReport(strategyParam, 100000), strategyParam);
-                            }
+            for (int periodOne = 8; periodOne < 18; periodOne++) { //9-12
+                for (int periodTwo = 4; periodTwo < 8; periodTwo++) { //5-8
+                    for (float buyLine = -0.4f; buyLine < 0.4f; buyLine += 0.1) {
+                        for (float sellLine = -0.4f; sellLine < 0.4f; sellLine += 0.1) {
+                         //   for (float stopLoss = -0.0f; stopLoss < 0.5f; stopLoss += 0.05) {
+                                strategyParam = new StrategyParam(periodOne, periodTwo, buyLine, sellLine, 0);      // new object ore reset the field values !!!
+                               // strategyParam = new StrategyParam(periodOne, periodTwo, 0, 0, 0);      // new object ore reset the field values !!!
+                                resultMapStrategy.put(workStrategy.testStrategyGetReport(strategyParam), strategyParam);
+                          //  }
                         }
                     }
                 }
             }
+            // relocate into properties ///
+
 
         } else {
-            //  strategyParam = new StrategyParam(9, 5, -0.1f, -0.45f, 0.04f);
-            // {periodOne=8, periodTwo=7, buyLIne=-0.2, sellLine=0.10000002, buyLIneShort=0.0, sellLineShort=0.0, stopLoss=-1.6391278E-8} - ???
-            strategyParam = new StrategyParam(8, 5, 0.00f, 0.0f, 0.0f);
-            resultMapStrategy.put(workStrategy.testStrategyGetReport(strategyParam, 100000), strategyParam);
+           // periodOne=9, periodTwo=5, buyLIne=-0.10000002, sellLine=-0.4, buyLIneShort=0.0, sellLineShort=0.0, stopLoss=-0.0}
+            strategyParam = new StrategyParam(13, 6, 0.0f, -0.2f, 0.0f);
+            resultMapStrategy.put(workStrategy.testStrategyGetReport(strategyParam), strategyParam);
         }
 
         long finishTime = System.nanoTime();
@@ -90,7 +96,7 @@ public class MainSMA {
         Collection<Report> reportCollection = resultMapStrategy.keySet();
         ArrayList<Report> reportArrayList = new ArrayList<>(reportCollection);
         bestReport = Collections.max(reportArrayList, Report.compareReportByMaxBalance());
-        // bestReport = Collections.max(reportArrayList, Report.compareReportByGoodDeal());
+      // bestReport = Collections.max(reportArrayList, Report.compareReportByGoodDeal());
 
         return bestReport;
     }

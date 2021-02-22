@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class SMA_StrategyReverseDifferent extends AbstractStrategy {
 
 
-    public SMA_StrategyReverseDifferent(CandleStream candleStream, int paperCount, IndicatorContainer container) {
-        super(candleStream, paperCount, container);
+    public SMA_StrategyReverseDifferent(CandleStream candleStream, int paperCount, IndicatorContainer container, float startMoney) {
+        super(candleStream, paperCount, container, startMoney);
     }
 
     @Override

@@ -71,7 +71,7 @@ public class CandleStream {
             Statement statement = conn.createStatement();
             getCandleArrayFromBase(ticker, period, dateFrom, dateTo, statement);
         } catch (SQLException | IOException ex) {
-            logger.error("Connection failed..." + ex.toString());
+            logger.fatal("Connection failed..." + ex.toString());
         }
     }
 

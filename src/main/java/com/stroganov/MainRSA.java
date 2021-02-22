@@ -46,14 +46,14 @@ public class MainRSA {
                     for (int buyLine = 28; buyLine <= 34; buyLine++) {
                         for (int stopLoss = -5; stopLoss <= 16; stopLoss++) {
                             strategyParam = new StrategyParam(periodOne, 0, buyLine, sellLine, stopLoss);//13,30,68,8 StrategyParam{periodRSA=11, buyLIne=29, sellLine=72, stopLoss=12}
-                            resultMapStrategy.put(workStrategy.testStrategyGetReport(strategyParam,100000), strategyParam);
+                            resultMapStrategy.put(workStrategy.testStrategyGetReport(strategyParam), strategyParam);
                         }
                     }
                 }
             }
         } else {
             strategyParam = new StrategyParam(13, 0, 30, 72, 8);//13,30,68,8 StrategyParam{periodRSA=11, buyLIne=29, sellLine=72, stopLoss=12}
-            resultMapStrategy.put(workStrategy.testStrategyGetReport(strategyParam,100000), strategyParam);
+            resultMapStrategy.put(workStrategy.testStrategyGetReport(strategyParam), strategyParam);
         }
 
         long finishTime = System.nanoTime();

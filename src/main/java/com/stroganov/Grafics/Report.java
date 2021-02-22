@@ -93,7 +93,7 @@ public class Report {
         finishBalance = transactionArrayList.get(transactionArrayList.size() - 1).getBalance().getAllBalance();
         countTransactions = transactionArrayList.size();
 
-        for (int i = 0; i < transactionArrayList.size() - 1; i += 2) {                         // при односторонних сделках i=+2;
+        for (int i = 0; i < transactionArrayList.size() - 1; i =i+2) {                         // при односторонних сделках i=+2;
             double balanceFirst = transactionArrayList.get(i).getBalance().getAllBalance();
             double balanceNext = transactionArrayList.get(i + 1).getBalance().getAllBalance();
             changesAllBalance.add(balanceNext - balanceFirst);

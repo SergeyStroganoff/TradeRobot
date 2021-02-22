@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class RSA_StrategyStopLoss extends AbstractStrategy {
 
-    public RSA_StrategyStopLoss(CandleStream candleStream, int paperCount, IndicatorContainer container) {
-        super(candleStream, paperCount,  container);
+    public RSA_StrategyStopLoss(CandleStream candleStream, int paperCount, IndicatorContainer container, float startMoney) {
+        super(candleStream, paperCount,  container, startMoney);
     }
 
     @Override
